@@ -55,7 +55,10 @@ Rectangle {
         id: duktoInner
         anchors.fill: parent
         onShowIpList: duktoOverlay.state = "ip"
-        onShowSettings: duktoOverlay.state = "settings"
+        onShowSettings: {
+            duktoOverlay.refreshSettingsColor();
+            duktoOverlay.state = "settings";
+        }
     }
 
     UpdatesBox {

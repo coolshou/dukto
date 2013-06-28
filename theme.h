@@ -61,6 +61,11 @@ signals:
     void color8Changed();
     void color9Changed();
 
+public slots:
+    float getHue(QString color);
+    float getSaturation(QString color);
+    float getLightness(QString color);
+
 private:
     QString mColor1;
     QString mColor2;

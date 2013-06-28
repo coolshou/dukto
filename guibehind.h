@@ -20,6 +20,9 @@
 #define GUIBEHIND_H
 
 #include <QObject>
+#if defined(Q_WS_S60)
+#include <QNetworkSession>
+#endif
 
 #include "buddylistitemmodel.h"
 #include "recentlistitemmodel.h"
@@ -54,6 +57,7 @@ class GuiBehind : public QObject
     Q_PROPERTY(QString messagePageBackState READ messagePageBackState WRITE setMessagePageBackState NOTIFY messagePageBackStateChanged)
     Q_PROPERTY(bool showTermsOnStart READ showTermsOnStart WRITE setShowTermsOnStart NOTIFY showTermsOnStartChanged)
     Q_PROPERTY(bool showUpdateBanner READ showUpdateBanner WRITE setShowUpdateBanner NOTIFY showUpdateBannerChanged)
+    Q_PROPERTY(QString buddyName READ buddyName WRITE setBuddyName NOTIFY buddyNameChanged)
 
 public:
     explicit GuiBehind(DuktoWindow* view);
@@ -95,6 +99,12 @@ public:
     void setShowTermsOnStart(bool show);
     bool showUpdateBanner();
     void setShowUpdateBanner(bool show);
+    void setBuddyName(QString name);
+    QString buddyName();
+
+#if defined(Q_WS_S60)
+    void initConnection();
+#endif
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event);
@@ -116,6 +126,7 @@ signals:
     void messagePageBackStateChanged();
     void showTermsOnStartChanged();
     void showUpdateBannerChanged();
+    void buddyNameChanged();
 
     // Received by QML
     void transferStart();
@@ -131,6 +142,7 @@ public slots:
     void remoteDestinationAddressHandler();
     void periodicHello();
     void showUpdatesMessage();
+    void sendScreenStage2();
 
     // Called by Dukto protocol
     void peerListAdded(Peer peer);
@@ -155,9 +167,15 @@ public slots:
     void sendFolder();
     void sendClipboardText();
     void sendText();
+    void sendScreen();
     void changeThemeColor(QString color);
     void resetProgressStatus();
     void abortTransfer();
+
+#if defined(Q_WS_S60)
+    void connectOpened();
+    void connectError(QNetworkSession::SessionError error);
+#endif
 
 private:
     DuktoWindow *mView;
@@ -188,10 +206,16 @@ private:
     QString mMessagePageTitle;
     QString mMessagePageBackState;
     bool mShowUpdateBanner;
+    QString mScreenTempPath;
 
     bool prepareStartTransfer(QString *ip, qint16 *port);
     void startTransfer(QStringList files);
     void startTransfer(QString text);
+
+#if defined(Q_WS_S60)
+    QNetworkSession *mNetworkSession;
+#endif
+
 };
 
 #endif // GUIBEHIND_H

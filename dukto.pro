@@ -1,7 +1,7 @@
 # Add more folders to ship with the application, here
-qml_folder.source = qml/dukto
-qml_folder.target = qml
-DEPLOYMENTFOLDERS = qml_folder
+#qml_folder.source = qml/dukto
+#qml_folder.target = qml
+#DEPLOYMENTFOLDERS = qml_folder
 
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
@@ -9,8 +9,11 @@ QML_IMPORT_PATH =
 QT += network
 
 win32:RC_FILE = dukto.rc
-win32:LIBS += libWs2_32 libole32
-win32:VERSION = 5.0.0
+win32:LIBS += libWs2_32 libole32 libNetapi32
+
+mac:ICON = dukto.icns
+
+VERSION = 6.0.0
 
 # Smart Installer package's UID
 # This UID is from the protected range and therefore the package will

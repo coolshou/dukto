@@ -125,7 +125,7 @@ Rectangle {
         id: labelAction
         anchors.left: localBuddy.left
         anchors.top: localBuddy.bottom
-        anchors.topMargin: 45
+        anchors.topMargin: 35
         font.pixelSize: 17
         color: theme.color4
         text: "What do you want to do?"
@@ -134,7 +134,7 @@ Rectangle {
     ButtonDark {
         id: buttonSendText
         anchors.top: labelAction.bottom
-        anchors.topMargin: 20
+        anchors.topMargin: 15
         anchors.left: localBuddy.left
         width: 300
         buttonEnabled: guiBehind.currentTransferBuddy !== ""
@@ -145,7 +145,7 @@ Rectangle {
     ButtonDark {
         id: buttonSendClipboardText
         anchors.top: buttonSendText.bottom
-        anchors.topMargin: 20
+        anchors.topMargin: 15
         anchors.left: localBuddy.left
         width: 300
         label: "Send text from clipboard"
@@ -156,7 +156,7 @@ Rectangle {
     ButtonDark {
         id: buttonSendFiles
         anchors.top: buttonSendClipboardText.bottom
-        anchors.topMargin: 20
+        anchors.topMargin: 15
         anchors.left: localBuddy.left
         width: 300
         buttonEnabled: guiBehind.currentTransferBuddy !== ""
@@ -167,14 +167,25 @@ Rectangle {
     ButtonDark {
         id: buttonSendFolder
         anchors.top: buttonSendFiles.bottom
-        anchors.topMargin: 20
+        anchors.topMargin: 15
         anchors.left: localBuddy.left
         width: 300
         buttonEnabled: guiBehind.currentTransferBuddy !== ""
         label: "Send a folder"
         onClicked: guiBehind.sendFolder()
     }
-
+/*
+    ButtonDark {
+        id: buttonSendScreen
+        anchors.top: buttonSendFolder.bottom
+        anchors.topMargin: 15
+        anchors.left: localBuddy.left
+        width: 300
+        buttonEnabled: guiBehind.currentTransferBuddy !== ""
+        label: "Send a screenshot"
+        onClicked: guiBehind.sendScreen()
+    }
+*/
     SText {
         id: labelDrop
         anchors.left: localBuddy.left

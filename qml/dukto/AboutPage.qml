@@ -40,7 +40,7 @@ Item {
         y: 80
         x: 22
         font.pixelSize: 100
-        text: "Dukto R5"
+        text: "Dukto R6"
         color: theme.color4
     }
     SmoothText {

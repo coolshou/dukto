@@ -38,7 +38,6 @@
         <file>qml/dukto/RecentText.png</file>
         <file>qml/dukto/SendPage.qml</file>
         <file>qml/dukto/SettingsPage.qml</file>
-        <file>qml/dukto/ShowIpIcon - Copia.png</file>
         <file>qml/dukto/ShowIpIcon.png</file>
         <file>qml/dukto/ShowTextPage.qml</file>
         <file>qml/dukto/TermsPage.qml</file>
@@ -48,5 +47,10 @@
         <file>qml/dukto/ToolBar.qml</file>
         <file>qml/dukto/UnknownLogo.png</file>
         <file>qml/dukto/WindowsLogo.png</file>
+        <file>qml/dukto/IosLogo.png</file>
+        <file>qml/dukto/SBPicker.qml</file>
+        <file>qml/dukto/ColorPicker.qml</file>
+        <file>qml/dukto/ColorSlider.qml</file>
+        <file>qml/dukto/ColorUtils.js</file>
     </qresource>
 </RCC>
