@@ -22,6 +22,11 @@ Rectangle {
     color: "#00000000"
     state: guiBehind.showTermsOnStart ? "termspage" : ""
 
+    function refreshSettingsColor() {
+
+        settingsPage.refreshColor();
+    }
+
     Rectangle {
         id: disabler
         anchors.fill: parent

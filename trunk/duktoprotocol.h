@@ -45,8 +45,10 @@ public:
     inline QHash<QString, Peer>& getPeers() { return mPeers; }
     void sendFile(QString ipDest, qint16 port, QStringList files);
     void sendText(QString ipDest, qint16 port, QString text);
+    void sendScreen(QString ipDest, qint16 port, QString path);
     inline bool isBusy() { return mIsSending || mIsReceiving; }
     void abortCurrentTransfer();
+    void updateBuddyName();
     
 public slots:
     void newUdpData();
@@ -103,6 +105,7 @@ private:
     qint64 mSentBuffer;             // Quantità di dati rimanenti nel buffer di trasmissione
     QString mBasePath;              // Percorso base per l'invio di file e cartelle
     QString mTextToSend;            // Testo da inviare (in caso di invio testuale)
+    bool mSendingScreen;            // Flag che indica se si sta inviando uno screenshot
 
     // Receive members
     qint64 mElementsToReceiveCount;    // Numero di elementi da ricevere
@@ -115,6 +118,11 @@ private:
     QByteArray mTextToReceive;             // Testo ricevuto in caso di invio testo
     bool mReceivingText;               // Ricezione di testo in corso
     QByteArray mPartialName;              // Nome prossimo file letto solo in parte
+    enum RecvStatus {
+        FILENAME,
+        FILESIZE,
+        DATA
+    } mRecvStatus;
 
 };
 

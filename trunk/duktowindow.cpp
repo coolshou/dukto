@@ -31,10 +31,12 @@ DuktoWindow::DuktoWindow(QWidget *parent) :
 {
     // Configure window
     setAcceptDrops(true);
-    setWindowTitle("Dukto R5");
+    setWindowTitle("Dukto");
+#ifndef Q_WS_S60
     setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowCloseButtonHint | Qt::WindowMinimizeButtonHint);
     setMaximumSize(350, 5000);
     setMinimumSize(350, 500);
+#endif
     setOrientation(QmlApplicationViewer::ScreenOrientationLockPortrait);
 
     // Taskbar integration with Win7

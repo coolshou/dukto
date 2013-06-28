@@ -22,7 +22,15 @@
 #include "guibehind.h"
 #include "duktowindow.h"
 
-#ifndef Q_WS_S60
+#if defined(Q_WS_S60)
+#define SYMBIAN
+#endif
+
+#if defined(Q_WS_SIMULATOR)
+#define SYMBIAN
+#endif
+
+#ifndef SYMBIAN
 #include "qtsingleapplication.h"
 #endif
 
@@ -34,7 +42,7 @@ int main(int argc, char *argv[])
     qputenv("QML_ENABLE_TEXT_IMAGE_CACHE", "true");
 #endif
 
-#if defined(Q_WS_S60)
+#if defined(SYMBIAN)
     QApplication app(argc, argv);
 #else
     // Check for single running instance    
@@ -46,12 +54,18 @@ int main(int argc, char *argv[])
 #endif
 
     DuktoWindow viewer;
-#ifndef Q_WS_S60
+#ifndef SYMBIAN
     app.setActivationWindow(&viewer, true);
 #endif
     GuiBehind gb(&viewer);
+
+#ifndef Q_WS_S60
     viewer.showExpanded();
     app.installEventFilter(&gb);
+#else
+    viewer.showFullScreen();
+    gb.initConnection();
+#endif
 
     return app.exec();
 }

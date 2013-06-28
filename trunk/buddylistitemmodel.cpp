@@ -116,7 +116,10 @@ void BuddyListItemModel::addBuddy(QString ip, qint16 port, QString username, QSt
     // Add elemento to the list
     if (add) {
         appendRow(it);
-        if (ip != "") mItemsMap.insert(ip, it);
+        if (ip != "")
+            mItemsMap.insert(ip, it);
+        else
+            mMeItem = it;
     }
 }
 
@@ -177,3 +180,7 @@ QString BuddyListItemModel::fistBuddyIp()
     return this->index(2, 0).data(BuddyListItemModel::Ip).toString();
 }
 
+void BuddyListItemModel::updateMeElement()
+{
+    mMeItem->setData(Platform::getSystemUsername(), BuddyListItemModel::Username);
+}

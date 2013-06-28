@@ -35,12 +35,36 @@ void Theme::setThemeColor(QString color)
 {
     QColor c;
     c.setNamedColor(color);
-    c.setRed(c.red() + 40);
-    c.setGreen(c.green() + 40);
-    c.setBlue(c.blue() + 40);
+    c.setRed(qMin(c.red() + 40, 255));
+    c.setGreen(qMin(c.green() + 40, 255));
+    c.setBlue(qMin(c.blue() + 40, 255));
 
     mColor2 = color;
     mColor3 = c.name();
     emit color2Changed();
     emit color3Changed();
+}
+
+float Theme::getHue(QString color) {
+
+    QColor c;
+    c.setNamedColor(color);
+    QColor converted = c.toHsv();
+    return converted.hsvHueF();
+}
+
+float Theme::getSaturation(QString color) {
+
+    QColor c;
+    c.setNamedColor(color);
+    QColor converted = c.toHsv();
+    return converted.hsvSaturationF();
+}
+
+float Theme::getLightness(QString color) {
+
+    QColor c;
+    c.setNamedColor(color);
+    QColor converted = c.toHsv();
+    return converted.valueF();
 }

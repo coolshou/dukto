@@ -34,6 +34,7 @@ public:
     void addBuddy(Peer& peer);
     void removeBuddy(QString ip);
     void showSingleBack(int idx);
+    void updateMeElement();
     QString buddyNameByIp(QString ip);
     QStandardItem* buddyByIp(QString ip);
     QString fistBuddyIp();
@@ -52,6 +53,7 @@ public:
 
 private:
     QHash<QString, QStandardItem*> mItemsMap;
+    QStandardItem* mMeItem;
 };
 
 #endif // BUDDYLISTITEMMODEL_H

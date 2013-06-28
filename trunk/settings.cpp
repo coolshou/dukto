@@ -84,3 +84,17 @@ bool Settings::showTermsOnStart()
 {
     return mSettings.value("R5/ShowTermsOnStart", true).toBool();
 }
+
+QString Settings::buddyName()
+{
+    // Retrieve the last saved name (if any)
+    return mSettings.value("BuddyName", "User").toString();
+
+}
+
+void Settings::saveBuddyName(QString name)
+{
+    // Save the new name
+    mSettings.setValue("BuddyName", name);
+    mSettings.sync();
+}

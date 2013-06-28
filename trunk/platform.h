@@ -19,6 +19,8 @@
 #ifndef PLATFORM_H
 #define PLATFORM_H
 
+#include <qglobal.h>
+
 class QString;
 
 class Platform
@@ -30,10 +32,15 @@ public:
     static QString getAvatarPath();
     static QString getDefaultPath();
 
-private:
+// private:
     Platform() {}
+#if defined(Q_WS_X11)
     static QString getLinuxAvatarPath();
-
+#elif defined(Q_WS_MAC)
+    static QString getMacTempAvatarPath();
+#elif defined(Q_WS_WIN)
+    static QString getWinTempAvatarPath();
+#endif
 };
 
 #endif // PLATFORM_H
