@@ -7,5 +7,6 @@ Name=Dukto
 Comment=Easy and multi-platform file transfer tool
 Exec=/usr/bin/dukto
 Icon=dukto
+Categories=Network;QT;
 X-HildonDesk-ShowInToolbar=true
 X-Osso-Type=application/x-executable
