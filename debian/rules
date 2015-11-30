@@ -17,7 +17,7 @@ build: build-stamp
 build-stamp:
 	dh_testdir
 
-	/usr/bin/qmake-qt4 dukto.pro
+	qmake dukto.pro
 	make
 	# --- end custom part for compiling
 
