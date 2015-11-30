@@ -96,21 +96,21 @@ private:
     bool mIsSending;
     bool mIsReceiving;
     QFile *mCurrentFile;            // Puntatore al file aperto corrente
-    qint64 mTotalSize;              // Quantit‡ totale di dati da inviare o ricevere
+    qint64 mTotalSize;              // Quantit√† totale di dati da inviare o ricevere
     int mFileCounter;              // Puntatore all'elemento correntemente da trasmettere o ricevere
 
     // Sending members
     QStringList *mFilesToSend;      // Elenco degli elementi da trasmettere
-    qint64 mSentData;               // Quantit‡ di dati totale trasmessi
-    qint64 mSentBuffer;             // Quantit‡ di dati rimanenti nel buffer di trasmissione
+    qint64 mSentData;               // Quantit√† di dati totale trasmessi
+    qint64 mSentBuffer;             // Quantit√† di dati rimanenti nel buffer di trasmissione
     QString mBasePath;              // Percorso base per l'invio di file e cartelle
     QString mTextToSend;            // Testo da inviare (in caso di invio testuale)
     bool mSendingScreen;            // Flag che indica se si sta inviando uno screenshot
 
     // Receive members
     qint64 mElementsToReceiveCount;    // Numero di elementi da ricevere
-    qint64 mTotalReceivedData;         // Quantit‡ di dati ricevuti totale
-    qint64 mElementReceivedData;       // Quantit‡ di dati ricevuti per l'elemento corrente
+    qint64 mTotalReceivedData;         // Quantit√† di dati ricevuti totale
+    qint64 mElementReceivedData;       // Quantit√† di dati ricevuti per l'elemento corrente
     qint64 mElementSize;               // Dimensione dell'elemento corrente
     QString mRootFolderName;           // Nome della cartella principale ricevuta
     QString mRootFolderRenamed;        // Nome della cartella principale da utilizzare
