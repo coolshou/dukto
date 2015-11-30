@@ -24,6 +24,10 @@
 #include <QNetworkSession>
 #endif
 
+#include <QSystemTrayIcon>
+#include <QMenu>
+#include <QAction>
+
 #include "buddylistitemmodel.h"
 #include "recentlistitemmodel.h"
 #include "ipaddressitemmodel.h"
@@ -103,6 +107,9 @@ public:
     void setBuddyName(QString name);
     QString buddyName();
     QString appVersion();
+
+    bool isTrayIconVisible();
+    void setTrayIconVisible(bool bVisible);
 
 #if defined(Q_OS_S60)
     void initConnection();
@@ -213,6 +220,16 @@ private:
     bool prepareStartTransfer(QString *ip, qint16 *port);
     void startTransfer(QStringList files);
     void startTransfer(QString text);
+
+    //system tray
+    QAction *minimizeAction;
+    QAction *maximizeAction;
+    QAction *restoreAction;
+    QAction *quitAction;
+    void createActions();
+    void createTrayIcon();
+    QSystemTrayIcon *trayIcon;
+    QMenu *trayIconMenu;
 
 #if defined(Q_OS_S60)
     QNetworkSession *mNetworkSession;

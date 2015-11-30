@@ -46,6 +46,7 @@ DuktoWindow::DuktoWindow(QWidget *parent) :
 
     // Taskbar integration with Win7
     mWin7.init(this->winId());
+
 }
 
 #ifdef Q_OS_WIN
@@ -94,5 +95,15 @@ void DuktoWindow::dropEvent(QDropEvent *event)
 void DuktoWindow::closeEvent(QCloseEvent *event)
 {
     mGuiBehind->settings()->saveWindowGeometry(saveGeometry());
-    mGuiBehind->close();
+    if (mGuiBehind->isTrayIconVisible()) {
+        hide();
+        event->ignore();
+    } else {
+        mGuiBehind->close();
+    }
+}
+
+void DuktoWindow::exit(){
+    mGuiBehind->setTrayIconVisible(false);
+    close();
 }

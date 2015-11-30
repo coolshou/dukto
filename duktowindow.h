@@ -46,6 +46,7 @@ protected:
 signals:
 
 public slots:
+    void exit();
 
 private:
     GuiBehind *mGuiBehind;

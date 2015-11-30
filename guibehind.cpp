@@ -145,6 +145,13 @@ GuiBehind::GuiBehind(DuktoWindow* view) :
     connect(mUpdatesChecker, SIGNAL(updatesAvailable()), this, SLOT(showUpdatesMessage()));
     QTimer::singleShot(2000, mUpdatesChecker, SLOT(start()));
 
+    //system tray
+    if (QSystemTrayIcon::isSystemTrayAvailable()){
+        createActions();
+        createTrayIcon();
+        trayIcon->show();
+    }
+
     // TEMP
     // Peer p(QHostAddress("172.16.3.3"), "Pippo at Pluto (Macintosh)");
     // Peer p(QHostAddress("172.16.3.3"), "NomeUtenteMoltoLungoCheNonCiSta at IlMioPcCheHaUnNomeImpensabilmenteLungo (Macintosh)", 4644);
@@ -858,6 +865,14 @@ QString GuiBehind::appVersion()
 {
     return QApplication::applicationVersion();
 }
+bool GuiBehind::isTrayIconVisible()
+{
+    return trayIcon->isVisible();
+}
+void GuiBehind::setTrayIconVisible(bool bVisible)
+{
+    trayIcon->setVisible(bVisible);
+}
 #if defined(Q_OS_S60)
 void GuiBehind::initConnection()
 {
@@ -885,3 +900,35 @@ void GuiBehind::connectError(QNetworkSession::SessionError error)
 }
 
 #endif
+
+void GuiBehind::createActions()
+{
+    minimizeAction = new QAction(tr("Mi&nimize"), mView);
+    connect(minimizeAction, SIGNAL(triggered()), mView, SLOT(hide()));
+
+    maximizeAction = new QAction(tr("Ma&ximize"), mView);
+    connect(maximizeAction, SIGNAL(triggered()), mView, SLOT(showMaximized()));
+
+    restoreAction = new QAction(tr("&Restore"), mView);
+    connect(restoreAction, SIGNAL(triggered()), mView, SLOT(showNormal()));
+
+    quitAction = new QAction(tr("&Quit"), mView);
+    connect(quitAction, SIGNAL(triggered()), mView, SLOT(exit()));
+}
+
+void GuiBehind::createTrayIcon()
+{
+    trayIconMenu = new QMenu(mView);
+    trayIconMenu->addAction(minimizeAction);
+    trayIconMenu->addAction(maximizeAction);
+    trayIconMenu->addAction(restoreAction);
+    trayIconMenu->addSeparator();
+    trayIconMenu->addAction(quitAction);
+
+    trayIcon = new QSystemTrayIcon(mView);
+    trayIcon->setContextMenu(trayIconMenu);
+    QIcon icon(":/dukto.png");
+    trayIcon->setIcon(icon);
+    //trayIcon->setToolTip("test");
+}
+
