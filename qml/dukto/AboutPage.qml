@@ -44,6 +44,13 @@ Item {
         color: theme.color4
     }
     SmoothText {
+        y: 135
+        x: 170
+        text: "Version:" + APPVersion
+        font.pixelSize: 16
+        color: theme.color4
+    }
+    SmoothText {
         x: 25
         y: 70 + 75
         font.pixelSize: 38

@@ -58,6 +58,7 @@ class GuiBehind : public QObject
     Q_PROPERTY(bool showTermsOnStart READ showTermsOnStart WRITE setShowTermsOnStart NOTIFY showTermsOnStartChanged)
     Q_PROPERTY(bool showUpdateBanner READ showUpdateBanner WRITE setShowUpdateBanner NOTIFY showUpdateBannerChanged)
     Q_PROPERTY(QString buddyName READ buddyName WRITE setBuddyName NOTIFY buddyNameChanged)
+    Q_PROPERTY(QString appVersion READ appVersion)
 
 public:
     explicit GuiBehind(DuktoWindow* view);
@@ -101,6 +102,7 @@ public:
     void setShowUpdateBanner(bool show);
     void setBuddyName(QString name);
     QString buddyName();
+    QString appVersion();
 
 #if defined(Q_OS_S60)
     void initConnection();

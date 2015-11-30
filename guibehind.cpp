@@ -125,9 +125,11 @@ GuiBehind::GuiBehind(DuktoWindow* view) :
     connect(mPeriodicHelloTimer, SIGNAL(timeout()), this, SLOT(periodicHello()));
     mPeriodicHelloTimer->start(60000);
 
+    //version
+    view->rootContext()->setContextProperty("APPVersion", QApplication::applicationVersion());
+
     // Load GUI
     view->setSource(QUrl("qrc:/qml/dukto/Dukto.qml"));
-    //view->setSource(QUrl::fromLocalFile("c:/users/emanuele/documenti/dukto/qml/dukto/Dukto.qml"));
 #ifndef Q_OS_S60
     view->restoreGeometry(mSettings->windowGeometry());
 #endif
@@ -852,6 +854,10 @@ QString GuiBehind::buddyName()
     return mSettings->buddyName();
 }
 
+QString GuiBehind::appVersion()
+{
+    return QApplication::applicationVersion();
+}
 #if defined(Q_OS_S60)
 void GuiBehind::initConnection()
 {
