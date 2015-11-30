@@ -31,7 +31,7 @@ RecentListItemModel::RecentListItemModel() :
     roleNames[DateTime] = "dateTime";
     roleNames[Sender] = "sender";
     roleNames[Size] = "size";
-    setRoleNames(roleNames);
+    setItemRoleNames(roleNames);
 }
 
 void RecentListItemModel::addRecent(QString name, QString value, QString type, QString sender, qint64 size)

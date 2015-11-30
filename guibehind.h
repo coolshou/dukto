@@ -20,7 +20,7 @@
 #define GUIBEHIND_H
 
 #include <QObject>
-#if defined(Q_WS_S60)
+#if defined(Q_OS_S60)
 #include <QNetworkSession>
 #endif
 
@@ -102,7 +102,7 @@ public:
     void setBuddyName(QString name);
     QString buddyName();
 
-#if defined(Q_WS_S60)
+#if defined(Q_OS_S60)
     void initConnection();
 #endif
 
@@ -172,7 +172,7 @@ public slots:
     void resetProgressStatus();
     void abortTransfer();
 
-#if defined(Q_WS_S60)
+#if defined(Q_OS_S60)
     void connectOpened();
     void connectError(QNetworkSession::SessionError error);
 #endif
@@ -212,7 +212,7 @@ private:
     void startTransfer(QStringList files);
     void startTransfer(QString text);
 
-#if defined(Q_WS_S60)
+#if defined(Q_OS_S60)
     QNetworkSession *mNetworkSession;
 #endif
 

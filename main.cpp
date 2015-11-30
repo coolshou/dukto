@@ -15,18 +15,23 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+#include <qglobal.h>
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 #include <QtGui/QApplication>
+#else
+#include <QtWidgets/QApplication>
+#endif
 #include "qmlapplicationviewer.h"
 
 #include "guibehind.h"
 #include "duktowindow.h"
 
-#if defined(Q_WS_S60)
+#if defined(Q_OS_S60)
 #define SYMBIAN
 #endif
 
-#if defined(Q_WS_SIMULATOR)
+#if defined(Q_OS_SIMULATOR)
 #define SYMBIAN
 #endif
 
@@ -36,30 +41,38 @@
 
 int main(int argc, char *argv[])
 {
-#if defined(Q_WS_X11)
+#if defined(Q_OS_UNIX)
+	#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     QApplication::setGraphicsSystem("raster");
-#elif defined (Q_WS_WIN)
+    #endif
+#elif defined (Q_OS_WIN)
     qputenv("QML_ENABLE_TEXT_IMAGE_CACHE", "true");
 #endif
 
 #if defined(SYMBIAN)
     QApplication app(argc, argv);
 #else
+
+    QApplication::setApplicationName("dukto");
+    QApplication::setOrganizationName("idv.coolshou");
+
     // Check for single running instance    
     QtSingleApplication app(argc, argv);
     if (app.isRunning()) {
         app.sendMessage("FOREGROUND");
         return 0;
     }
+
 #endif
 
     DuktoWindow viewer;
+        
 #ifndef SYMBIAN
     app.setActivationWindow(&viewer, true);
 #endif
     GuiBehind gb(&viewer);
 
-#ifndef Q_WS_S60
+#ifndef Q_OS_S60
     viewer.showExpanded();
     app.installEventFilter(&gb);
 #else

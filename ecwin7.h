@@ -24,7 +24,7 @@
 #include <QWidget>
 
 // Windows only data definitions
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
 
 #include <windows.h>
 #include <initguid.h>
@@ -115,7 +115,7 @@ public:
 	// Initialization methods
     EcWin7();
     void init(WId wid);
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
     bool winEvent(MSG * message, long * result);
 #endif
 	// Overlay icon handling
@@ -134,7 +134,7 @@ public:
 
 private:
     WId mWindowId;
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
     UINT mTaskbarMessageId;
     ITaskbarList3 *mTaskbar;
     HICON mOverlayIcon;

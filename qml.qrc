@@ -52,5 +52,6 @@
         <file>qml/dukto/ColorPicker.qml</file>
         <file>qml/dukto/ColorSlider.qml</file>
         <file>qml/dukto/ColorUtils.js</file>
+        <file>dukto.png</file>
     </qresource>
 </RCC>

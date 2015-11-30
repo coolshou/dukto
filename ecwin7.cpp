@@ -20,7 +20,7 @@
 #include "ecwin7.h"
 
 // Windows only GUID definitions
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
 DEFINE_GUID(CLSID_TaskbarList,0x56fdf344,0xfd6d,0x11d0,0x95,0x8a,0x0,0x60,0x97,0xc9,0xa0,0x90);
 DEFINE_GUID(IID_ITaskbarList3,0xea1afb91,0x9e28,0x4b86,0x90,0xE9,0x9e,0x9f,0x8a,0x5e,0xef,0xaf);
 #endif
@@ -28,7 +28,7 @@ DEFINE_GUID(IID_ITaskbarList3,0xea1afb91,0x9e28,0x4b86,0x90,0xE9,0x9e,0x9f,0x8a,
 // Constructor: variabiles initialization
 EcWin7::EcWin7()
 {
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
     mTaskbar = NULL;
     mOverlayIcon = NULL;
 #endif
@@ -38,14 +38,14 @@ EcWin7::EcWin7()
 void EcWin7::init(WId wid)
 {
     mWindowId = wid;
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
     mTaskbarMessageId = RegisterWindowMessage(L"TaskbarButtonCreated");
 #endif
 }
 
 // Windows event handler callback function
 // (handles taskbar communication initial message)
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
 bool EcWin7::winEvent(MSG * message, long * result)
 {
     if (message->message == mTaskbarMessageId)
@@ -65,7 +65,7 @@ bool EcWin7::winEvent(MSG * message, long * result)
 // Set progress bar current value
 void EcWin7::setProgressValue(int value, int max)
 {
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
     if (!mTaskbar) return;
     mTaskbar->SetProgressValue(mWindowId, value, max);
 #endif
@@ -74,7 +74,7 @@ void EcWin7::setProgressValue(int value, int max)
 // Set progress bar current state (active, error, pause, ecc...)
 void EcWin7::setProgressState(ToolBarProgressState state)
 {
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
     if (!mTaskbar) return;
     mTaskbar->SetProgressState(mWindowId, (TBPFLAG)state);
 #endif
@@ -84,7 +84,7 @@ void EcWin7::setProgressState(ToolBarProgressState state)
 // (call with iconName == "" and description == "" to remove any previous overlay icon)
 void EcWin7::setOverlayIcon(QString iconName, QString description)
 {
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
     if (!mTaskbar) return;
     HICON oldIcon = NULL;
     if (mOverlayIcon != NULL) oldIcon = mOverlayIcon;

@@ -34,7 +34,7 @@ public:
     inline EcWin7* win7() { return &mWin7; }
 
 protected:
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
     bool winEvent(MSG * message, long * result);
 #endif
     void dragEnterEvent(QDragEnterEvent *event);

@@ -7,13 +7,18 @@
 QML_IMPORT_PATH =
 
 QT += network
+greaterThan(QT_MAJOR_VERSION, 4): QT += declarative widgets
+#for nullptr
+greaterThan(QT_MAJOR_VERSION, 4): CONFIG += c++11
 
+
+    
 win32:RC_FILE = dukto.rc
 win32:LIBS += libWs2_32 libole32 libNetapi32
 
 mac:ICON = dukto.icns
 
-VERSION = 6.0.0
+VERSION = 6.1.0
 
 # Smart Installer package's UID
 # This UID is from the protected range and therefore the package will

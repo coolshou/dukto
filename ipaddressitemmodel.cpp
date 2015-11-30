@@ -26,7 +26,7 @@ IpAddressItemModel::IpAddressItemModel() :
 {
     QHash<int, QByteArray> roleNames;
     roleNames[Ip] = "ip";
-    setRoleNames(roleNames);
+    setItemRoleNames(roleNames);
 
     refreshIpList();
 }

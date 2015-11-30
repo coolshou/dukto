@@ -37,7 +37,7 @@ BuddyListItemModel::BuddyListItemModel() :
     roleNames[Avatar] = "avatar";
     roleNames[OsLogo] = "oslogo";
     roleNames[ShowBack] = "showback";
-    setRoleNames(roleNames);
+    setItemRoleNames(roleNames);
 }
 
 void BuddyListItemModel::addMeElement()
