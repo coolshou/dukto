@@ -55,6 +55,7 @@ int main(int argc, char *argv[])
 
     QApplication::setApplicationName("dukto");
     QApplication::setOrganizationName("idv.coolshou");
+    QApplication::setApplicationVersion(APP_VERSION);
 
     // Check for single running instance    
     QtSingleApplication app(argc, argv);
