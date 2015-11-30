@@ -11,7 +11,7 @@ IDI_ICON1               ICON    DISCARDABLE     "dukto.ico"
 #define VER_COMPANYNAME_STR         "msec.it"
 #define VER_FILEDESCRIPTION_STR     "Dukto R6"
 #define VER_INTERNALNAME_STR        "Dukto R6"
-#define VER_LEGALCOPYRIGHT_STR      "Copyright © 2013 Emanuele Colombo"
+#define VER_LEGALCOPYRIGHT_STR      "Copyright Â© 2013 Emanuele Colombo"
 #define VER_LEGALTRADEMARKS1_STR    "All Rights Reserved"
 #define VER_LEGALTRADEMARKS2_STR    VER_LEGALTRADEMARKS1_STR
 #define VER_ORIGINALFILENAME_STR    "dukto.exe"
