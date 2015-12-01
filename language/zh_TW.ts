@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="zh_TW" sourcelanguage="en">
+<TS version="2.0" language="zh_TW" sourcelanguage="en">
 <context>
     <name>AboutPage</name>
     <message>
@@ -105,7 +105,7 @@ received yet...</source>
         <location filename="../qml/dukto/SendPage.qml" line="196"/>
         <source>Or simply drag &amp; drop some files and folders
 over this window to send them to your buddy.</source>
-        <translation type="unfinished"></translation>
+        <translation>或者直接拖放檔案或資料夾到這視窗將它傳送給你的夥伴.</translation>
     </message>
 </context>
 <context>
@@ -136,7 +136,7 @@ over this window to send them to your buddy.</source>
     <message>
         <location filename="../qml/dukto/ShowTextPage.qml" line="62"/>
         <source>Text snippet</source>
-        <translation type="unfinished"></translation>
+        <translation>文字片段</translation>
     </message>
     <message>
         <location filename="../qml/dukto/ShowTextPage.qml" line="76"/>
@@ -151,12 +151,12 @@ over this window to send them to your buddy.</source>
     <message>
         <location filename="../qml/dukto/ShowTextPage.qml" line="138"/>
         <source>Paste from clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>貼上剪貼簿內容</translation>
     </message>
     <message>
         <location filename="../qml/dukto/ShowTextPage.qml" line="138"/>
         <source>Copy to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>複製剪貼簿內容</translation>
     </message>
     <message>
         <location filename="../qml/dukto/ShowTextPage.qml" line="156"/>
@@ -187,7 +187,7 @@ over this window to send them to your buddy.</source>
     <message>
         <location filename="../qml/dukto/TermsPage.qml" line="38"/>
         <source>Disclaimer</source>
-        <translation>放棄</translation>
+        <translation>聲明</translation>
     </message>
     <message>
         <location filename="../qml/dukto/TermsPage.qml" line="51"/>
@@ -216,7 +216,7 @@ Also, the Software will periodically send anonymous data to the author servers f
     <message>
         <location filename="../qml/dukto/ToolBar.qml" line="69"/>
         <source>Received</source>
-        <translation type="unfinished">接收</translation>
+        <translation>接收</translation>
     </message>
     <message>
         <location filename="../qml/dukto/ToolBar.qml" line="94"/>
