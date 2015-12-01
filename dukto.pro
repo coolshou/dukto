@@ -68,11 +68,38 @@ SOURCES += main.cpp \
     theme.cpp \
     updateschecker.cpp
 
-#Localizing - lupdate tool
+#Localizing
+LANGUAGES = zh_TW
+
+#a function to generate a TS file for each language
+defineReplace(prependAll) {
+ for(a,$$1):result ''= $$2$${a}$$3
+ return($$result)
+}
+TRANSLATIONS = $$prependAll(LANGUAGES, $$PWD/language/, .ts)
+
+#lrelease to generate the QM files
+TRANSLATIONS_FILES =
+
+qtPrepareTool(LRELEASE, lrelease)
+for(tsfile, TRANSLATIONS) {
+ qmfile = $$shadowed($$tsfile)
+ qmfile ~= s,.ts$,.qm,
+ qmdir = $$dirname(qmfile)
+ !exists($$qmdir) {
+ mkpath($$qmdir)|error("Aborting.")
+ }
+ command = $$LRELEASE -removeidentical $$tsfile -qm $$qmfile
+ system($$command)|error("Failed to run: $$command")
+ TRANSLATIONS_FILES''= $$qmfile
+}
+
+
 # English
 #TRANSLATIONS += language/en_US.ts
 # Chinese Tranditional
-TRANSLATIONS += language/zh_TW.ts
+#TRANSLATIONS += language/zh_TW.ts
+
 
 lupdate_only{
 SOURCES = qml/dukto/*.qml \
