@@ -81,6 +81,7 @@ TRANSLATIONS = $$prependAll(LANGUAGES, $$PWD/language/, .ts)
 #lrelease to generate the QM files
 TRANSLATIONS_FILES =
 
+#TODO: following can not handle chinese path
 qtPrepareTool(LRELEASE, lrelease)
 for(tsfile, TRANSLATIONS) {
  qmfile = $$shadowed($$tsfile)
@@ -93,12 +94,6 @@ for(tsfile, TRANSLATIONS) {
  system($$command)|error("Failed to run: $$command")
  TRANSLATIONS_FILES''= $$qmfile
 }
-
-
-# English
-#TRANSLATIONS += language/en_US.ts
-# Chinese Tranditional
-#TRANSLATIONS += language/zh_TW.ts
 
 
 lupdate_only{
@@ -136,7 +131,16 @@ OTHER_FILES +=
 
 DISTFILES += \
     README.md \
-    language/*.ts
+    language/*.ts \
+    android/AndroidManifest.xml \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/build.gradle \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew.bat
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 
 
