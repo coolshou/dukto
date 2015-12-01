@@ -185,6 +185,8 @@ public slots:
     void connectOpened();
     void connectError(QNetworkSession::SessionError error);
 #endif
+private slots:
+    void iconActivated(QSystemTrayIcon::ActivationReason reason);
 
 private:
     DuktoWindow *mView;

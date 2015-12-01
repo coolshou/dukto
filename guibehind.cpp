@@ -930,5 +930,29 @@ void GuiBehind::createTrayIcon()
     QIcon icon(":/dukto.png");
     trayIcon->setIcon(icon);
     //trayIcon->setToolTip("test");
+    connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+                 this, SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));
+
+}
+
+void GuiBehind::iconActivated(QSystemTrayIcon::ActivationReason reason)
+{
+    switch (reason) {
+    case QSystemTrayIcon::Trigger:
+        //single left click
+        if (mView->isHidden() || mView->isMinimized()) {
+            mView->showNormal();
+        } else {
+            mView->hide();
+        }
+        break;
+    case QSystemTrayIcon::DoubleClick:
+        //double click
+        break;
+    case QSystemTrayIcon::MiddleClick:
+        break;
+    default:
+        ;
+    }
 }
 
