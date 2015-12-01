@@ -70,7 +70,7 @@ Rectangle {
             anchors.leftMargin: 15
             anchors.topMargin: 5
             font.pixelSize: 64
-            text: guiBehind.currentTransferSending ? "Sending data" : "Receiving data"
+            text: guiBehind.currentTransferSending ? qsTr("Sending data") : qsTr("Receiving data")
         }
 
         SText {
@@ -82,7 +82,7 @@ Rectangle {
             anchors.topMargin: 45
             elide: "ElideRight"
             font.pixelSize: 16
-            text: (guiBehind.currentTransferSending ? "to " : "from ") + guiBehind.currentTransferBuddy
+            text: (guiBehind.currentTransferSending ? qsTr("to ") : qsTr("from ")) + guiBehind.currentTransferBuddy
         }
 
         Rectangle {
@@ -113,7 +113,7 @@ Rectangle {
             anchors.rightMargin: 17
             anchors.bottomMargin: 17
             width: 75
-            label: "Abort"
+            label: qsTr("Abort")
             onClicked: guiBehind.abortTransfer()
             visible: guiBehind.currentTransferSending
         }

@@ -42,7 +42,7 @@ Item {
         anchors.leftMargin: 40
         font.pixelSize: 17
         color: theme.color4
-        text: "Sorry, no data has been\nreceived yet..."
+        text: qsTr("Sorry, no data has been\nreceived yet...")
         visible: (recentList.count == 0)
     }
 
@@ -121,7 +121,7 @@ Item {
                      font.pixelSize: 12
                      elide: "ElideRight"
                      color: theme.color5
-                     text: "from " + sender + ", " + dateTime
+                     text: qsTr("from ") + sender + ", " + dateTime
                  }
              }
          }

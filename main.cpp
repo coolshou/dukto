@@ -22,6 +22,9 @@
 #else
 #include <QtWidgets/QApplication>
 #endif
+#include <QTranslator>
+#include <QLocale>
+
 #include "qmlapplicationviewer.h"
 
 #include "guibehind.h"
@@ -52,7 +55,6 @@ int main(int argc, char *argv[])
 #if defined(SYMBIAN)
     QApplication app(argc, argv);
 #else
-
     QApplication::setApplicationName("dukto");
     QApplication::setOrganizationName("idv.coolshou");
     QApplication::setApplicationVersion(APP_VERSION);
@@ -63,8 +65,15 @@ int main(int argc, char *argv[])
         app.sendMessage("FOREGROUND");
         return 0;
     }
-
 #endif
+    //translator
+    QString locale = QLocale::system().name();
+    QTranslator translator;
+    if (translator.load(locale, ":/language")) {
+        app.installTranslator(&translator);
+    } else {
+        qDebug() << "Could not load translations language of " << locale;
+    }
 
     DuktoWindow viewer;
         

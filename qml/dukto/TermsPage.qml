@@ -35,7 +35,7 @@ Rectangle {
         anchors.leftMargin: 15
         anchors.topMargin: 5
         font.pixelSize: 64
-        text: "Disclaimer"
+        text: qsTr("Disclaimer")
         color: theme.color3
     }
 
@@ -48,7 +48,7 @@ Rectangle {
         anchors.rightMargin: 20
         anchors.topMargin: 45
         font.pixelSize: 16
-        text: "Please read and press 'accept'"
+        text: qsTr("Please read and press 'accept'")
         color: theme.color5
     }
 
@@ -96,7 +96,7 @@ Rectangle {
                 wrapMode: TextEdit.Wrap
                 textFormat: TextEdit.PlainText
                 readOnly: true
-                text: "The Software is provided on an AS IS basis, without warranty of any kind, including without limitation the warranties of merchantability, fitness for a particular purpose and non-infringement. The entire risk as to the quality and performance of the Software is borne by you. Should the Software prove defective, you and not the author assume the entire cost of any service and repair.\n\nTHE AUTHOR IS NOT RESPONSIBLE FOR ANY INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF ANY CHARACTER INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF GOODWILL, WORK STOPPAGE, COMPUTER FAILURE OR MALFUNCTION, OR ANY AND ALL OTHER COMMERCIAL DAMAGES OR LOSSES.\n\nTitle, ownership rights and intellectual property rights in and to the Software shall remain to the author.\n\nAlso, the Software will periodically send anonymous data to the author servers for statistical information, like (but not only) the Software version, operating system version, application settings, current locale."
+                text: qsTr("The Software is provided on an AS IS basis, without warranty of any kind, including without limitation the warranties of merchantability, fitness for a particular purpose and non-infringement. The entire risk as to the quality and performance of the Software is borne by you. Should the Software prove defective, you and not the author assume the entire cost of any service and repair.\n\nTHE AUTHOR IS NOT RESPONSIBLE FOR ANY INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF ANY CHARACTER INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF GOODWILL, WORK STOPPAGE, COMPUTER FAILURE OR MALFUNCTION, OR ANY AND ALL OTHER COMMERCIAL DAMAGES OR LOSSES.\n\nTitle, ownership rights and intellectual property rights in and to the Software shall remain to the author.\n\nAlso, the Software will periodically send anonymous data to the author servers for statistical information, like (but not only) the Software version, operating system version, application settings, current locale.")
                 onCursorRectangleChanged: flickableText.ensureVisible(cursorRectangle)
             }
         }
@@ -109,7 +109,7 @@ Rectangle {
         anchors.rightMargin: 10
         anchors.bottomMargin: 10
         buttonEnabled: true
-        label: "Accept"
+        label: qsTr("Accept")
         onClicked: termsPage.ok();
     }
 }

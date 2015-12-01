@@ -86,7 +86,7 @@ Rectangle {
             anchors.leftMargin: 15
             anchors.topMargin: 5
             font.pixelSize: 64
-            text: "Your IP addresses"
+            text: qsTr("Your IP addresses")
         }
 
         ListView {

@@ -59,7 +59,7 @@ Rectangle {
         anchors.leftMargin: 15
         anchors.topMargin: 5
         font.pixelSize: 64
-        text: "Text snippet"
+        text: qsTr("Text snippet")
         color: theme.color3
     }
 
@@ -73,7 +73,7 @@ Rectangle {
         anchors.topMargin: 45
         elide: "ElideRight"
         font.pixelSize: 16
-        text: (guiBehind.textSnippetSending ? "to " : "from ") + guiBehind.textSnippetBuddy
+        text: (guiBehind.textSnippetSending ? qsTr("to ") : qsTr("from ")) + guiBehind.textSnippetBuddy
         color: theme.color5
     }
 
@@ -135,7 +135,7 @@ Rectangle {
         anchors.rightMargin: 10
         anchors.bottomMargin: 10
         buttonEnabled: guiBehind.textSnippetSending ? guiBehind.clipboardTextAvailable : true
-        label: guiBehind.textSnippetSending ? "Paste from clipboard" : "Copy to clipboard"
+        label: guiBehind.textSnippetSending ? qsTr("Paste from clipboard") : qsTr("Copy to clipboard")
         onClicked: {
             if (guiBehind.textSnippetSending)
                 textEditSnippet.paste();
@@ -153,7 +153,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.leftMargin: 15
         anchors.bottomMargin: 10
-        label: "Send"
+        label: qsTr("Send")
         visible: guiBehind.textSnippetSending
         buttonEnabled: textEditSnippet.text != ""
         onClicked: {

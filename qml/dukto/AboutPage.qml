@@ -46,7 +46,7 @@ Item {
     SmoothText {
         y: 135
         x: 170
-        text: "Version:" + APPVersion
+        text: qsTr("Version: ") + APPVersion
         font.pixelSize: 16
         color: theme.color4
     }
@@ -61,7 +61,7 @@ Item {
         x: 25
         y: 100 + 75
         font.pixelSize: 32
-        text: "Website: <a href=\"http://www.msec.it/dukto/\">http://www.msec.it/dukto/</a>"
+        text: qsTr("Website") + ": <a href=\"http://www.msec.it/dukto/\">http://www.msec.it/dukto/</a>"
         onLinkActivated: Qt.openUrlExternally(link)
         color: theme.color5
     }

@@ -34,7 +34,7 @@ Item {
             id: buddyText
             x: 10
             font.pixelSize: 84
-            text: "buddies"
+            text: qsTr("buddies")
             transformOrigin: Item.TopLeft
             color: buddyTextMouseArea.containsMouse ? theme.color3 : theme.color7
             scale: 0.5
@@ -54,7 +54,7 @@ Item {
             id: recentText
             x: 182
             font.pixelSize: 84
-            text: "recent"
+            text: qsTr("recent")
             transformOrigin: Item.TopLeft
             color: recentTextMouseArea.containsMouse ? theme.color3 : theme.color7
             scale: 0.5
@@ -75,7 +75,7 @@ Item {
             x: 320
             font.pixelSize: 84
             color: aboutTextMouseArea.containsMouse ? theme.color3 : theme.color7
-            text: "about"
+            text: qsTr("about")
             MouseArea {
                 id: aboutTextMouseArea
                 anchors.fill: parent

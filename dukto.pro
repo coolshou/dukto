@@ -68,6 +68,17 @@ SOURCES += main.cpp \
     theme.cpp \
     updateschecker.cpp
 
+#Localizing - lupdate tool
+# English
+#TRANSLATIONS += language/en_US.ts
+# Chinese Tranditional
+TRANSLATIONS += language/zh_TW.ts
+
+lupdate_only{
+SOURCES = qml/dukto/*.qml \
+          qml/dukto/*.js
+}
+
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
@@ -89,11 +100,16 @@ HEADERS += \
     updateschecker.h
 
 RESOURCES += \
-    qml.qrc
+    qml.qrc \
+    translations.qrc
 
 include(qtsingleapplication/qtsingleapplication.pri)
 
 OTHER_FILES +=
+
+DISTFILES += \
+    README.md \
+    language/*.ts
 
 
 

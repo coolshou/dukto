@@ -66,7 +66,7 @@ Item {
             anchors.top: openFolderIcon.bottom
             anchors.topMargin: 3
             anchors.horizontalCenter: openFolderIcon.horizontalCenter
-            text: "Received"
+            text: qsTr("Received")
             font.pixelSize: 12
             horizontalAlignment: Text.AlignHCenter
             width: 1
@@ -91,7 +91,7 @@ Item {
             anchors.top: showIpIcon.bottom
             anchors.topMargin: 3
             anchors.horizontalCenter: showIpIcon.horizontalCenter
-            text: "Addresses"
+            text: qsTr("Addresses")
             font.pixelSize: 12
             horizontalAlignment: Text.AlignHCenter
             width: 1
@@ -114,7 +114,7 @@ Item {
             anchors.top: configIcon.bottom
             anchors.topMargin: 3
             anchors.horizontalCenter: configIcon.horizontalCenter
-            text: "Settings"
+            text: qsTr("Settings")
             font.pixelSize: 12
             horizontalAlignment: Text.AlignHCenter
             width: 1

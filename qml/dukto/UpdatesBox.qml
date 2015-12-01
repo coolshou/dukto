@@ -42,7 +42,7 @@ Item {
             anchors.margins: 10
             font.pixelSize: 14
             wrapMode: "WordWrap"
-            text: "A new release is available, click here to download it!"
+            text: qsTr("A new release is available, click here to download it!")
         }
 
         MouseArea {

@@ -54,7 +54,7 @@ Rectangle {
         anchors.leftMargin: 15
         anchors.topMargin: 5
         font.pixelSize: 64
-        text: "Send data to"
+        text: qsTr("Send data to")
         color: theme.color3
     }
 
@@ -85,7 +85,7 @@ Rectangle {
         buddyGeneric: "UnknownLogo.png"
         buddyAvatar: ""
         buddyOsLogo: ""
-        buddyUsername: "Destination:"
+        buddyUsername: qsTr("Destination:")
         buddySystem: ""
         buddyIp: "-"
     }
@@ -128,7 +128,7 @@ Rectangle {
         anchors.topMargin: 35
         font.pixelSize: 17
         color: theme.color4
-        text: "What do you want to do?"
+        text: qsTr("What do you want to do?")
     }
 
     ButtonDark {
@@ -138,7 +138,7 @@ Rectangle {
         anchors.left: localBuddy.left
         width: 300
         buttonEnabled: guiBehind.currentTransferBuddy !== ""
-        label: "Send some text"
+        label: qsTr("Send some text")
         onClicked: sendPage.showTextPage();
     }
 
@@ -148,7 +148,7 @@ Rectangle {
         anchors.topMargin: 15
         anchors.left: localBuddy.left
         width: 300
-        label: "Send text from clipboard"
+        label: qsTr("Send text from clipboard")
         buttonEnabled: guiBehind.clipboardTextAvailable && (guiBehind.currentTransferBuddy !== "")
         onClicked: guiBehind.sendClipboardText()
     }
@@ -160,7 +160,7 @@ Rectangle {
         anchors.left: localBuddy.left
         width: 300
         buttonEnabled: guiBehind.currentTransferBuddy !== ""
-        label: "Send some files"
+        label: qsTr("Send some files")
         onClicked: guiBehind.sendSomeFiles()
     }
 
@@ -171,7 +171,7 @@ Rectangle {
         anchors.left: localBuddy.left
         width: 300
         buttonEnabled: guiBehind.currentTransferBuddy !== ""
-        label: "Send a folder"
+        label: qsTr("Send a folder")
         onClicked: guiBehind.sendFolder()
     }
 /*
@@ -193,6 +193,6 @@ Rectangle {
         anchors.bottomMargin: 20
         font.pixelSize: 14
         color: theme.color5
-        text: "Or simply drag & drop some files and folders\nover this window to send them to your buddy."
+        text: qsTr("Or simply drag & drop some files and folders\nover this window to send them to your buddy.")
     }
 }

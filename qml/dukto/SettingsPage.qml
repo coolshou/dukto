@@ -54,7 +54,7 @@ Rectangle {
         anchors.leftMargin: 15
         anchors.topMargin: 5
         font.pixelSize: 64
-        text: "Settings"
+        text: qsTr("Settings")
         color: theme.color3
     }
 
@@ -65,7 +65,7 @@ Rectangle {
         anchors.leftMargin: 17
         anchors.topMargin: 70
         font.pixelSize: 16
-        text: "Save received file in:"
+        text: qsTr("Save received file in:")
         color: theme.color5
     }
 
@@ -105,7 +105,7 @@ Rectangle {
         anchors.rightMargin: 17
         anchors.top: textPath.bottom
         anchors.topMargin: 10
-        label: "Change folder"
+        label: qsTr("Change folder")
         onClicked: guiBehind.changeDestinationFolder()
     }
 
@@ -115,7 +115,7 @@ Rectangle {
         anchors.top: buttonPath.bottom
         anchors.topMargin: 40
         font.pixelSize: 16
-        text: "Theme color:"
+        text: qsTr("Theme color:")
         color: theme.color5
     }
 
