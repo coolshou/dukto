@@ -248,9 +248,9 @@ void GuiBehind::receiveFileComplete(QStringList *files, qint64 totalSize) {
     // Add an entry to recent activities
     QDir d(".");
     if (files->size() == 1)
-        mRecentList.addRecent(files->at(0), d.absoluteFilePath(files->at(0)), "file", mCurrentTransferBuddy, totalSize);
+        mRecentList.addRecent(files->at(0), d.absoluteFilePath(files->at(0)), tr("file"), mCurrentTransferBuddy, totalSize);
     else
-        mRecentList.addRecent("Files and folders", d.absolutePath(), "misc", mCurrentTransferBuddy, totalSize);
+        mRecentList.addRecent(tr("Files and folders"), d.absolutePath(), tr("misc"), mCurrentTransferBuddy, totalSize);
 
     // Update GUI
     mView->win7()->setProgressState(EcWin7::NoProgress);
@@ -261,7 +261,7 @@ void GuiBehind::receiveFileComplete(QStringList *files, qint64 totalSize) {
 void GuiBehind::receiveTextComplete(QString *text, qint64 totalSize)
 {
     // Add an entry to recent activities
-    mRecentList.addRecent("Text snippet", *text, "text", mCurrentTransferBuddy, totalSize);
+    mRecentList.addRecent(tr("Text snippet"), *text, tr("text"), mCurrentTransferBuddy, totalSize);
 
     // Update GUI
     mView->win7()->setProgressState(EcWin7::NoProgress);
@@ -290,7 +290,7 @@ void GuiBehind::openDestinationFolder()
 void GuiBehind::changeDestinationFolder()
 {
     // Show system dialog for folder selection
-    QString dirname = QFileDialog::getExistingDirectory(mView, "Change folder", ".",
+    QString dirname = QFileDialog::getExistingDirectory(mView, tr("Change folder"), ".",
         QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     if (dirname == "") return;
 
@@ -298,8 +298,8 @@ void GuiBehind::changeDestinationFolder()
     // Disable saving on C:
     if (dirname.toUpper().startsWith("C:")) {
 
-        setMessagePageTitle("Destination");
-        setMessagePageText("Receiving data on C: is disabled for security reasons. Please select another destination folder.");
+        setMessagePageTitle(tr("Destination"));
+        setMessagePageText(tr("Receiving data on C: is disabled for security reasons. Please select another destination folder."));
         setMessagePageBackState("settings");
         emit gotoMessagePage();
         return;
@@ -363,7 +363,7 @@ void GuiBehind::sendDroppedFiles(QStringList *files)
 void GuiBehind::sendSomeFiles()
 {
     // Show file selection dialog
-    QStringList files = QFileDialog::getOpenFileNames(mView, "Send some files");
+    QStringList files = QFileDialog::getOpenFileNames(mView, tr("Send some files"));
     if (files.count() == 0) return;
 
     // Send files
@@ -374,7 +374,7 @@ void GuiBehind::sendSomeFiles()
 void GuiBehind::sendFolder()
 {
     // Show folder selection dialog
-    QString dirname = QFileDialog::getExistingDirectory(mView, "Change folder", ".",
+    QString dirname = QFileDialog::getExistingDirectory(mView, tr("Change folder"), ".",
         QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     if (dirname == "") return;
 
@@ -392,8 +392,8 @@ void GuiBehind::sendClipboardText()
     if (text == "") return;
 #else
     if (text == "") {
-        setMessagePageTitle("Send");
-        setMessagePageText("No text appears to be in the clipboard right now!");
+        setMessagePageTitle(tr("Send"));
+        setMessagePageText(tr("No text appears to be in the clipboard right now!"));
         setMessagePageBackState("send");
         emit gotoMessagePage();
         return;
@@ -485,8 +485,8 @@ bool GuiBehind::prepareStartTransfer(QString *ip, qint16 *port)
             if (rx.indexIn(dest) == -1) {
 
                 // Malformed destination
-                setMessagePageTitle("Send");
-                setMessagePageText("Hey, take a look at your destination, it appears to be malformed!");
+                setMessagePageTitle(tr("Send"));
+                setMessagePageText(tr("Hey, take a look at your destination, it appears to be malformed!"));
                 setMessagePageBackState("send");
                 emit gotoMessagePage();
                 return false;
@@ -515,7 +515,7 @@ bool GuiBehind::prepareStartTransfer(QString *ip, qint16 *port)
 
     // Update GUI for file transfer
     setCurrentTransferSending(true);
-    setCurrentTransferStats("Connecting...");
+    setCurrentTransferStats(tr("Connecting..."));
     setCurrentTransferProgress(0);
     mView->win7()->setProgressState(EcWin7::Normal);
     mView->win7()->setProgressValue(0, 100);
@@ -530,11 +530,11 @@ void GuiBehind::sendFileComplete(QStringList *files)
     files = files;
 
     // Show completed message
-    setMessagePageTitle("Send");
+    setMessagePageTitle(tr("Send"));
 #ifndef Q_OS_S60
-    setMessagePageText("Your data has been sent to your buddy!\n\nDo you want to send other files to your buddy? Just drag and drop them here!");
+    setMessagePageText(tr("Your data has been sent to your buddy!\n\nDo you want to send other files to your buddy? Just drag and drop them here!"));
 #else
-    setMessagePageText("Your data has been sent to your buddy!");
+    setMessagePageText(tr("Your data has been sent to your buddy!"));
 #endif
     setMessagePageBackState("send");
 
@@ -582,8 +582,8 @@ bool GuiBehind::canAcceptDrop()
 // Handles send error
 void GuiBehind::sendFileError(int code)
 {
-    setMessagePageTitle("Error");
-    setMessagePageText("Sorry, an error has occurred while sending your data...\n\nError code: " + QString::number(code));
+    setMessagePageTitle(tr("Error"));
+    setMessagePageText(tr("Sorry, an error has occurred while sending your data...\n\nError code: ") + QString::number(code));
     setMessagePageBackState("send");
     mView->win7()->setProgressState(EcWin7::Error);
 
@@ -601,8 +601,8 @@ void GuiBehind::sendFileError(int code)
 // Handles receive error
 void GuiBehind::receiveFileCancelled()
 {
-    setMessagePageTitle("Error");
-    setMessagePageText("An error has occurred during the transfer... The data you received could be incomplete or broken.");
+    setMessagePageTitle(tr("Error"));
+    setMessagePageText(tr("An error has occurred during the transfer... The data you received could be incomplete or broken."));
     setMessagePageBackState("");
     mView->win7()->setProgressState(EcWin7::Error);
     emit gotoMessagePage();
@@ -867,11 +867,15 @@ QString GuiBehind::appVersion()
 }
 bool GuiBehind::isTrayIconVisible()
 {
-    return trayIcon->isVisible();
+    if (QSystemTrayIcon::isSystemTrayAvailable()){
+        return trayIcon->isVisible();
+    }
 }
 void GuiBehind::setTrayIconVisible(bool bVisible)
 {
-    trayIcon->setVisible(bVisible);
+    if (QSystemTrayIcon::isSystemTrayAvailable()){
+        trayIcon->setVisible(bVisible);
+    }
 }
 #if defined(Q_OS_S60)
 void GuiBehind::initConnection()
@@ -894,7 +898,7 @@ void GuiBehind::connectOpened()
 
 void GuiBehind::connectError(QNetworkSession::SessionError error)
 {
-    QString msg = "Unable to connecto to the network (code " + QString::number(error) + ").";
+    QString msg = tr("Unable to connecto to the network") + " (code " + QString::number(error) + ").";
     QMessageBox::critical(NULL, tr("Dukto"), msg);
     exit(-1);
 }
