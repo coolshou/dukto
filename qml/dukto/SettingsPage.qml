@@ -110,9 +110,58 @@ Rectangle {
     }
 
     SText {
+        id: labelBuddyName
+        anchors.left: parent.left
+        anchors.top: buttonPath.bottom
+        anchors.leftMargin: 17
+        anchors.topMargin: 15
+        font.pixelSize: 16
+        text: qsTr("Appear to your buddies as:")
+        color: theme.color5
+    }
+
+    Rectangle {
+        id: rectBuddyName
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: labelBuddyName.bottom
+        anchors.leftMargin: 17
+        anchors.rightMargin: 17
+        anchors.topMargin: 8
+        height: 30
+        color: theme.color2
+        clip: true
+
+        Image {
+            anchors.top: parent.top
+            anchors.left: parent.left
+            source: "PanelGradient.png"
+        }
+
+        STextInput {
+            id: textBuddyName
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.topMargin: 7
+            anchors.leftMargin: 5
+            anchors.rightMargin: 5
+            anchors.fill: parent
+            horizontalAlignment: "AlignLeft"
+            font.pixelSize: 12
+            text: guiBehind.buddyName
+        }
+
+        //Binding {
+        //    target: guiBehind
+        //    property: "remoteDestinationAddress"
+        //    value: textBuddyName.text
+        //}
+    }
+
+    SText {
         id: labelColor
         anchors.left: labelPath.left
-        anchors.top: buttonPath.bottom
+        anchors.top: rectBuddyName.bottom
         anchors.topMargin: 40
         font.pixelSize: 16
         text: qsTr("Theme color:")

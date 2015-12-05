@@ -53,5 +53,7 @@
         <file>qml/dukto/ColorSlider.qml</file>
         <file>qml/dukto/ColorUtils.js</file>
         <file>dukto.png</file>
+        <file>qml/dukto/STextInput.qml</file>
+        <file>qml/dukto/AndroidLogo.png</file>
     </qresource>
 </RCC>

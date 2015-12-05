@@ -75,7 +75,7 @@ Item {
         font.pixelSize: 12
         color: theme.color5
         wrapMode: "WordWrap"
-        text: "This application and it's source code are released freely as open source project.<br>If you like this application please consider <a href=\"http://www.msec.it/\">making a donation</a>."
+        text: qsTr("This application and it's source code are released freely as open source project.<br>If you like this application please consider <a href=\"http://www.msec.it/\">making a donation</a>.")
         onLinkActivated: Qt.openUrlExternally(link)
     }
 }
