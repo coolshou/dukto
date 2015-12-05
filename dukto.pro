@@ -79,7 +79,7 @@ defineReplace(prependAll) {
  for(a,$$1):result ''= $$2$${a}$$3
  return($$result)
 }
-TRANSLATIONS = $$prependAll(LANGUAGES, $$PWD/language/, .ts)
+TRANSLATIONS = $$prependAll(LANGUAGES, $$PWD/src/language/, .ts)
 
 #lrelease to generate the QM files
 TRANSLATIONS_FILES =
@@ -100,8 +100,8 @@ for(tsfile, TRANSLATIONS) {
 
 
 lupdate_only{
-SOURCES = qml/dukto/*.qml \
-          qml/dukto/*.js
+SOURCES = src/qml/dukto/*.qml \
+          src/qml/dukto/*.js
 }
 
 # Please do not modify the following two lines. Required for deployment.
@@ -125,8 +125,8 @@ HEADERS += \
     src/updateschecker.h
 
 RESOURCES += \
-    qml.qrc \
-    translations.qrc
+    src/qml.qrc \
+    src/translations.qrc
 
 include(qtsingleapplication/qtsingleapplication.pri)
 
@@ -134,7 +134,7 @@ OTHER_FILES +=
 
 DISTFILES += \
     README.md \
-    language/*.ts
+    src/language/*.ts
 
 #android
 android {
