@@ -8,18 +8,20 @@ QML_IMPORT_PATH =
 
 QT += network
 greaterThan(QT_MAJOR_VERSION, 4): QT += declarative widgets
+QT += sensors
+
 #for nullptr
 greaterThan(QT_MAJOR_VERSION, 4): CONFIG += c++11
-QT += sensors
+
 
 VERSION = 6.1.0
 # Define the preprocessor macro to get the application version in our application.
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
-win32:RC_FILE = dukto.rc
+win32:RC_FILE = src/dukto.rc
 win32:LIBS += libWs2_32 libole32 libNetapi32
 
-mac:ICON = dukto.icns
+mac:ICON = src/dukto.icns
 
 
 # Smart Installer package's UID
@@ -39,11 +41,11 @@ unix {
 	INSTALLS += target
 	
 	icon.path = /usr/share/pixmaps
-	icon.files = dukto.png
+        icon.files = src/dukto.png
 	INSTALLS += icon
 	
 	desktop.path = /usr/share/applications/
-	desktop.files = dukto.desktop
+        desktop.files = src/dukto.desktop
 	INSTALLS += desktop
 }
 
@@ -53,20 +55,21 @@ unix {
 # MOBILITY +=
 
 # The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += main.cpp \
-    guibehind.cpp \
-    platform.cpp \
-    buddylistitemmodel.cpp \
-    duktoprotocol.cpp \
-    miniwebserver.cpp \
-    ipaddressitemmodel.cpp \
-    recentlistitemmodel.cpp \
-    settings.cpp \
-    destinationbuddy.cpp \
-    duktowindow.cpp \
-    ecwin7.cpp \
-    theme.cpp \
-    updateschecker.cpp
+SOURCES += \
+    src/main.cpp \
+    src/guibehind.cpp \
+    src/platform.cpp \
+    src/buddylistitemmodel.cpp \
+    src/duktoprotocol.cpp \
+    src/miniwebserver.cpp \
+    src/ipaddressitemmodel.cpp \
+    src/recentlistitemmodel.cpp \
+    src/settings.cpp \
+    src/destinationbuddy.cpp \
+    src/duktowindow.cpp \
+    src/ecwin7.cpp \
+    src/theme.cpp \
+    src/updateschecker.cpp
 
 #Localizing
 LANGUAGES = zh_TW
@@ -106,20 +109,20 @@ include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
 
 HEADERS += \
-    guibehind.h \
-    platform.h \
-    buddylistitemmodel.h \
-    duktoprotocol.h \
-    peer.h \
-    miniwebserver.h \
-    ipaddressitemmodel.h \
-    recentlistitemmodel.h \
-    settings.h \
-    destinationbuddy.h \
-    duktowindow.h \
-    ecwin7.h \
-    theme.h \
-    updateschecker.h
+    src/guibehind.h \
+    src/platform.h \
+    src/buddylistitemmodel.h \
+    src/duktoprotocol.h \
+    src/peer.h \
+    src/miniwebserver.h \
+    src/ipaddressitemmodel.h \
+    src/recentlistitemmodel.h \
+    src/settings.h \
+    src/destinationbuddy.h \
+    src/duktowindow.h \
+    src/ecwin7.h \
+    src/theme.h \
+    src/updateschecker.h
 
 RESOURCES += \
     qml.qrc \
@@ -131,17 +134,38 @@ OTHER_FILES +=
 
 DISTFILES += \
     README.md \
-    language/*.ts \
+    language/*.ts
+
+#android
+android {
+HEADERS += \
+    debug/qDebug2Logcat.h
+SOURCES += \
+    debug/qDebug2Logcat.cpp
+#app's icon:
+# ldpi : 36x36px (120 dpi / 47 dpcm)
+# mdpi : 48x48px (160 dpi / 62 dpcm)
+# hdpi : 72x72px (240 dpi / 94 dpcm)
+# xhdpi : 96x96px (320 dpi / 126 dpcm)
+# xxhdpi : 144x144px (480 dpi / 189 dpcm)
+# xxxhdpi : 192x192px (640 dpi / 252 dpcm)
+
+DISTFILES += \
     android/AndroidManifest.xml \
     android/gradle/wrapper/gradle-wrapper.jar \
     android/gradlew \
+    android/res/drawable-ldpi/icon.png \
+    android/res/drawable-mdpi/icon.png \
+    android/res/drawable-hdpi/icon.png \
+    android/res/drawable-xdpi/icon.png \
+    android/res/drawable-xxdpi/icon.png \
     android/res/values/libs.xml \
     android/build.gradle \
     android/gradle/wrapper/gradle-wrapper.properties \
     android/gradlew.bat
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
-
+}
 
 
 
