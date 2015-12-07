@@ -46,8 +46,8 @@ install: build
 	mkdir -p `pwd`/debian/dukto/usr/share/pixmaps/
 	mkdir -p `pwd`/debian/dukto/usr/share/applications/
 	install -D -m0755 -s dukto `pwd`/debian/dukto/usr/bin/dukto
-	install -D -m0644 dukto.png `pwd`/debian/dukto/usr/share/pixmaps/dukto.png
-	install -D -m0644 dukto.desktop `pwd`/debian/dukto/usr/share/applications/dukto.desktop
+	install -D -m0644 src/dukto.png `pwd`/debian/dukto/usr/share/pixmaps/dukto.png
+	install -D -m0644 src/dukto.desktop `pwd`/debian/dukto/usr/share/applications/dukto.desktop
 	#make INSTALL_ROOT=`pwd`/debian/dukto install
 	# make install DESTDIR=/usr/src/packages/BUILD/debian/ace
 	# --- end custom part for installing
