@@ -3,3 +3,4 @@ moc_*.cpp
 qrc_*.cpp
 /build-stamp
 /debian/dukto/
+*.pro.user
