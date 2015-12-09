@@ -65,6 +65,14 @@ Item {
         onLinkActivated: Qt.openUrlExternally(link)
         color: theme.color5
     }
+    SmoothText {
+        x: 25
+        y: 120 + 75
+        font.pixelSize: 32
+        text: "QT5: <a href=\"https://github.com/coolshou/dukto\">https://github.com/coolshou/dukto</a>"
+        onLinkActivated: Qt.openUrlExternally(link)
+        color: theme.color5
+    }
 
     SText {
         anchors.right: parent.right
