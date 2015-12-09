@@ -1,7 +1,7 @@
 # dukto
 Dukto LAN file transfer tool (mirror of SVN) http://www.msec.it/dukto/
 
-# Port to QT5 (QtQuick 1.0)
+# Port to QT5 (QtQuick 2)
 
 TODO:
  0. check Qt5 on Windows

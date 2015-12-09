@@ -140,7 +140,11 @@ OTHER_FILES +=
 
 DISTFILES += \
     README.md \
-    src/language/*.ts
+    src/language/*.ts \
+    debian/compat \
+    debian/control \
+    debian/changelog \
+    debian/rules
 
 #android
 android {
