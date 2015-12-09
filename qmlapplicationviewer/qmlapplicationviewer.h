@@ -10,10 +10,17 @@
 
 #ifndef QMLAPPLICATIONVIEWER_H
 #define QMLAPPLICATIONVIEWER_H
+#include <qglobal.h>
 
+#if QT_VERSION < QT_VERSION_CHECK (5, 0, 0)
 #include <QDeclarativeView>
-
 class QmlApplicationViewer : public QDeclarativeView
+#else
+#include <QCoreApplication>
+#include <QGuiApplication>
+#include <QQuickView>
+class QmlApplicationViewer : public QQuickView
+#endif
 {
     Q_OBJECT
 
@@ -23,8 +30,11 @@ public:
         ScreenOrientationLockLandscape,
         ScreenOrientationAuto
     };
-
+#if QT_VERSION < QT_VERSION_CHECK (5, 0, 0)
     explicit QmlApplicationViewer(QWidget *parent = 0);
+#else
+    explicit QmlApplicationViewer(QWindow *parent = 0);
+#endif
     virtual ~QmlApplicationViewer();
 
     static QmlApplicationViewer *create();
@@ -38,9 +48,14 @@ public:
     void showExpanded();
 
 private:
+    explicit QmlApplicationViewer(QQuickView *view, QWindow *parent);
     class QmlApplicationViewerPrivate *d;
 };
 
+#if QT_VERSION < QT_VERSION_CHECK (5, 0, 0)
 QApplication *createApplication(int &argc, char **argv);
+#else
+QGuiApplication *createApplication(int &argc, char **argv);
+#endif
 
 #endif // QMLAPPLICATIONVIEWER_H

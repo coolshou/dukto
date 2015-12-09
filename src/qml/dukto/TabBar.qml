@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-import QtQuick 1.0
+import QtQuick 2.3
 
 Item {
     id: tabBar
@@ -52,7 +52,8 @@ Item {
 
         SmoothText {
             id: recentText
-            x: 182
+            //anchors.left: buddyText.right
+            x: 150
             font.pixelSize: 84
             text: qsTr("recent")
             transformOrigin: Item.TopLeft
@@ -72,7 +73,7 @@ Item {
 
         SmoothText {
             id: aboutText
-            x: 320
+            x: 300
             font.pixelSize: 84
             color: aboutTextMouseArea.containsMouse ? theme.color3 : theme.color7
             text: qsTr("about")
@@ -106,13 +107,13 @@ Item {
 
             PropertyChanges {
                 target: recentText
-                x: 117
+                x: 100
                 color: theme.color2 // "#000000"
             }
 
             PropertyChanges {
                 target: aboutText
-                x: 255
+                x: 235
             }
         },
         State {

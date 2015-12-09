@@ -25,15 +25,22 @@
 #include "updateschecker.h"
 
 #include <QHash>
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 #include <QDeclarativeView>
 #include <QDeclarativeContext>
+#include <QDeclarativeProperty>
+#else
+#include <QQuickView>
+#include <QQmlContext>
+#include <QQmlProperty>
+#endif
+
 #include <QTimer>
 #include <QDesktopServices>
 #include <QDir>
 #include <QFileDialog>
 #include <QClipboard>
 #include <QApplication>
-#include <QDeclarativeProperty>
 #include <QGraphicsObject>
 #include <QRegExp>
 #include <QThread>
@@ -54,6 +61,8 @@
 #endif
 
 #include <QScreen>
+#include <QTime>
+
 #include <QDebug>
 
 #define NETWORK_PORT 4644 // 6742
@@ -72,25 +81,26 @@ GuiBehind::GuiBehind(DuktoWindow* view) :
 
     QSize screenSize = screen->size();
     qDebug() << "screenSize:" << screenSize;
-
+/*
     QFont f = mView->font();
     //pixelSize: for non text obj
     int pixelSize = 12;
     if (f.pointSize() == -1) {
-        qDebug() << "pixelSize:" << f.pixelSize();
-        int pixelSize=  (screen->logicalDotsPerInch() / 96) * f.pixelSize();
+        pixelSize = f.pixelSize();
+        int dpiFactor=  (screen->logicalDotsPerInch() / DPI_BASE) * f.pixelSize();
     } else {
-        int pixelSize = (f.pointSize() * screen->logicalDotsPerInch()) / 96;
+        int dpiFactor = (f.pointSize() * screen->logicalDotsPerInch()) / DPI_BASE;
         qDebug() << "fSize:" << pixelSize
               << "pointSize:" <<f.pointSize();
-
+        pixelSize = screen->logicalDotsPerInch() * f.pointSize()/DPI_BASE;
     }
+    qDebug() << "pixelSize:" << pixelSize;
     f.setPixelSize(pixelSize);
     //f.setPointSize();
     //app.setFont(f);
 
     mView->setFont(f);
-
+*/
     // Status variables
     mView->setGuiBehindReference(this);
     setCurrentTransferProgress(0);
@@ -162,13 +172,17 @@ GuiBehind::GuiBehind(DuktoWindow* view) :
     // Load GUI
     view->setSource(QUrl("qrc:/qml/dukto/Dukto.qml"));
 #ifndef Q_OS_S60
+    #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+    //TODO: check QtQuick 2 restoreGeometry
     view->restoreGeometry(mSettings->windowGeometry());
+    #endif
 #endif
 
     // Start random rotate
     mShowBackTimer = new QTimer(this);
     connect(mShowBackTimer, SIGNAL(timeout()), this, SLOT(showRandomBack()));
-    qsrand(QDateTime::currentDateTime().toTime_t());;
+    uint iSeed = QDateTime::currentDateTime().toTime_t();
+    qsrand(iSeed);
     mShowBackTimer->start(10000);
 
     // Enqueue check for updates
@@ -279,24 +293,30 @@ void GuiBehind::receiveFileComplete(QStringList *files, qint64 totalSize) {
     // Add an entry to recent activities
     QDir d(".");
     if (files->size() == 1)
-        mRecentList.addRecent(files->at(0), d.absoluteFilePath(files->at(0)), tr("file"), mCurrentTransferBuddy, totalSize);
+        mRecentList.addRecent(files->at(0), d.absoluteFilePath(files->at(0)), "file", mCurrentTransferBuddy, totalSize);
     else
-        mRecentList.addRecent(tr("Files and folders"), d.absolutePath(), tr("misc"), mCurrentTransferBuddy, totalSize);
+        mRecentList.addRecent(tr("Files and folders"), d.absolutePath(), "misc", mCurrentTransferBuddy, totalSize);
 
     // Update GUI
     mView->win7()->setProgressState(EcWin7::NoProgress);
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+//TODO: check QtQuick 2 alert
     QApplication::alert(mView, 5000);
+#endif
     emit receiveCompleted();
 }
 
 void GuiBehind::receiveTextComplete(QString *text, qint64 totalSize)
 {
     // Add an entry to recent activities
-    mRecentList.addRecent(tr("Text snippet"), *text, tr("text"), mCurrentTransferBuddy, totalSize);
+    mRecentList.addRecent(tr("Text snippet"), *text, "text", mCurrentTransferBuddy, totalSize);
 
     // Update GUI
     mView->win7()->setProgressState(EcWin7::NoProgress);
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+//TODO: check QtQuick 2 alert
     QApplication::alert(mView, 5000);
+#endif
     emit receiveCompleted();
 }
 
@@ -322,8 +342,14 @@ void GuiBehind::changeDestinationFolder()
 {
     // Show system dialog for folder selection.
     //TODO: check the siderbar add more link like /sdcard ..
+    #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     QString dirname = QFileDialog::getExistingDirectory(mView, tr("Change folder"), ".",
         QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    #else
+    QString dirname = QFileDialog::getExistingDirectory(nullptr, tr("Change folder"), ".",
+        QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+
+    #endif
     if (dirname == "") return;
 
 #ifdef SYMBIAN
@@ -395,7 +421,11 @@ void GuiBehind::sendDroppedFiles(QStringList *files)
 void GuiBehind::sendSomeFiles()
 {
     // Show file selection dialog
+    #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     QStringList files = QFileDialog::getOpenFileNames(mView, tr("Send some files"));
+    #else
+    QStringList files = QFileDialog::getOpenFileNames(nullptr, tr("Send some files"));
+    #endif
     if (files.count() == 0) return;
 
     // Send files
@@ -406,8 +436,13 @@ void GuiBehind::sendSomeFiles()
 void GuiBehind::sendFolder()
 {
     // Show folder selection dialog
+    #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     QString dirname = QFileDialog::getExistingDirectory(mView, tr("Change folder"), ".",
         QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    #else
+    QString dirname = QFileDialog::getExistingDirectory(nullptr, tr("Change folder"), ".",
+        QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    #endif
     if (dirname == "") return;
 
     // Send files
@@ -902,6 +937,7 @@ bool GuiBehind::isTrayIconVisible()
     if (QSystemTrayIcon::isSystemTrayAvailable()){
         return trayIcon->isVisible();
     }
+    return false;
 }
 void GuiBehind::setTrayIconVisible(bool bVisible)
 {
@@ -930,7 +966,7 @@ void GuiBehind::connectOpened()
 
 void GuiBehind::connectError(QNetworkSession::SessionError error)
 {
-    QString msg = tr("Unable to connecto to the network") + " (code " + QString::number(error) + ").";
+    QString msg = tr("Unable to connect to the network (code: ") + QString::number(error) + ").";
     QMessageBox::critical(NULL, tr("Dukto"), msg);
     exit(-1);
 }
@@ -954,7 +990,11 @@ void GuiBehind::createActions()
 
 void GuiBehind::createTrayIcon()
 {
+    #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     trayIconMenu = new QMenu(mView);
+    #else
+    trayIconMenu = new QMenu(nullptr);
+    #endif
     trayIconMenu->addAction(minimizeAction);
     trayIconMenu->addAction(maximizeAction);
     trayIconMenu->addAction(restoreAction);
@@ -976,11 +1016,15 @@ void GuiBehind::iconActivated(QSystemTrayIcon::ActivationReason reason)
     switch (reason) {
     case QSystemTrayIcon::Trigger:
         //single left click
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        qDebug() << "//TODO:QT5 single left click on systray icon";
+#else
         if (mView->isHidden() || mView->isMinimized()) {
             mView->showNormal();
         } else {
             mView->hide();
         }
+#endif
         break;
     case QSystemTrayIcon::DoubleClick:
         //double click

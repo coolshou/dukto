@@ -35,6 +35,8 @@
 #include "duktoprotocol.h"
 #include "theme.h"
 
+#define DPI_BASE 96
+
 class UpdatesChecker;
 class MiniWebServer;
 class Settings;
@@ -242,6 +244,7 @@ private:
 #if defined(Q_OS_S60)
     QNetworkSession *mNetworkSession;
 #endif
+    int dpiFactor;
 
 };
 

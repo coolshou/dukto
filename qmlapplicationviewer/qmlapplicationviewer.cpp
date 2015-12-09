@@ -12,11 +12,17 @@
 
 #include <QDir>
 #include <QFileInfo>
+
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 #include <QApplication>
 #include <QDeclarativeComponent>
 #include <QDeclarativeEngine>
 #include <QDeclarativeContext>
-
+#else
+#include <QQmlComponent>
+#include <QQmlEngine>
+#include <QQmlContext>
+#endif
 #include <qplatformdefs.h> // MEEGO_EDITION_HARMATTAN
 
 #ifdef HARMATTAN_BOOSTER
@@ -50,7 +56,13 @@ static QmlJsDebuggingEnabler enableDebuggingHelper;
 
 class QmlApplicationViewerPrivate
 {
+    #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    QmlApplicationViewerPrivate(QQuickView *view_) : view(view_) {}
+    #endif
     QString mainQmlFile;
+    #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    QQuickView *view;
+    #endif
     friend class QmlApplicationViewer;
     static QString adjustPath(const QString &path);
 };
@@ -77,13 +89,23 @@ QString QmlApplicationViewerPrivate::adjustPath(const QString &path)
     return path;
 }
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 QmlApplicationViewer::QmlApplicationViewer(QWidget *parent)
     : QDeclarativeView(parent)
-    , d(new QmlApplicationViewerPrivate())
+#else
+QmlApplicationViewer::QmlApplicationViewer(QWindow *parent)
+    : QQuickView(parent)
+#endif
+    , d(new QmlApplicationViewerPrivate(this))
 {
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     connect(engine(), SIGNAL(quit()), SLOT(close()));
     setResizeMode(QDeclarativeView::SizeRootObjectToView);
-
+#else
+    //TODO: QObject::connect: No such slot QtSingleApplication::close() in ../dukto/qmlapplicationviewer/qmlapplicationviewer.cpp:105
+    connect(engine(), SIGNAL(quit()),QCoreApplication::instance(), SLOT(close()));
+    setResizeMode(QQuickView::SizeRootObjectToView);
+#endif
     // Qt versions prior to 4.8.0 don't have QML/JS debugging services built in
 #if defined(QMLJSDEBUGGER) && QT_VERSION < 0x040800
 #if !defined(NO_JSDEBUGGER)
@@ -94,6 +116,16 @@ QmlApplicationViewer::QmlApplicationViewer(QWidget *parent)
 #endif
 #endif
 }
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+QmlApplicationViewer::QmlApplicationViewer(QQuickView *view, QWindow *parent)
+    : QQuickView(parent)
+    , d(new QmlApplicationViewerPrivate(view))
+{
+    connect(view->engine(), SIGNAL(quit()), QCoreApplication::instance(), SLOT(quit()));
+    view->setResizeMode(QQuickView::SizeRootObjectToView);
+}
+#endif
 
 QmlApplicationViewer::~QmlApplicationViewer()
 {
@@ -107,7 +139,7 @@ QmlApplicationViewer *QmlApplicationViewer::create()
 
 void QmlApplicationViewer::setMainQmlFile(const QString &file)
 {
-    d->mainQmlFile = QmlApplicationViewerPrivate::adjustPath(file);
+    d->mainQmlFile = d->adjustPath(file);
 #ifdef Q_OS_ANDROID
     setSource(QUrl(QLatin1String("assets:/")+d->mainQmlFile));
 #else
@@ -117,7 +149,7 @@ void QmlApplicationViewer::setMainQmlFile(const QString &file)
 
 void QmlApplicationViewer::addImportPath(const QString &path)
 {
-    engine()->addImportPath(QmlApplicationViewerPrivate::adjustPath(path));
+    d->view->engine()->addImportPath(d->adjustPath(path));
 }
 
 void QmlApplicationViewer::setOrientation(ScreenOrientation orientation)
@@ -167,11 +199,19 @@ void QmlApplicationViewer::showExpanded()
 #endif
 }
 
+#if QT_VERSION < QT_VERSION_CHECK (5, 0, 0)
 QApplication *createApplication(int &argc, char **argv)
+#else
+QGuiApplication *createApplication(int &argc, char **argv)
+#endif
 {
 #ifdef HARMATTAN_BOOSTER
     return MDeclarativeCache::qApplication(argc, argv);
 #else
+    #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    return new QGuiApplication(argc, argv);
+    #else
     return new QApplication(argc, argv);
+    #endif
 #endif
 }

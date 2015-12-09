@@ -4,8 +4,11 @@
 # activation of QML debugging.
 # It is recommended not to modify this file, since newer versions of Qt Creator
 # may offer an updated version of it.
-
+lessThan(QT_MAJOR_VERSION, 5) {
 QT += declarative
+} else {
+QT += quick qml
+}
 
 SOURCES += $$PWD/qmlapplicationviewer.cpp
 HEADERS += $$PWD/qmlapplicationviewer.h

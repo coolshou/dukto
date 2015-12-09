@@ -691,7 +691,7 @@ void DuktoProtocol::updateStatus()
         emit transferStatusUpdate(mTotalSize, mTotalReceivedData);
 }
 
-// In caso di errore di connessione
+// In case of connection failure
 void DuktoProtocol::sendConnectError(QAbstractSocket::SocketError e)
 {
     if (mCurrentSocket)
@@ -806,14 +806,14 @@ QByteArray DuktoProtocol::nextElementHeader()
     return header;
 }
 
-// Calcola l'occupazione totale di tutti i file da trasferire
+//It calculates the total employment of all files to be transferred
 qint64 DuktoProtocol::computeTotalSize(QStringList *e)
 {
-    // Se è un invio testuale
+    // If you send a text
     if ((e->length() == 1) && (e->at(0) == "___DUKTO___TEXT___"))
         return mTextToSend.toUtf8().length();
 
-    // Se è un invio normale
+    // If you send a regular
     qint64 size = 0;
     for (int i = 0; i < e->count(); i++)
     {
@@ -823,19 +823,19 @@ qint64 DuktoProtocol::computeTotalSize(QStringList *e)
     return size;
 }
 
-// Invia un pacchetto a tutti gli indirizzi broadcast del PC
+// Sends a packet to all broadcast addresses of the PC
 void DuktoProtocol::sendToAllBroadcast(QByteArray *packet, qint16 port)
 {
-    // Elenco interfacce disponibili
+    // List interfaces available
     QList<QNetworkInterface> ifaces = QNetworkInterface::allInterfaces();
 
-    // Iterazione sulle interfacce
+    // Iteration interfaces
     for (int i = 0; i < ifaces.size(); i++)
     {
-        // Iterazione per tutti gli IP dell'interfaccia
+        // Iteration for all interface IP
         QList<QNetworkAddressEntry> addrs = ifaces[i].addressEntries();
 
-        // Invio pacchetto per ogni IP di broadcast
+        // Enter package for each IP broadcast
         for (int j = 0; j < addrs.size(); j++)
             if ((addrs[j].ip().protocol() == QAbstractSocket::IPv4Protocol) && (addrs[j].broadcast().toString() != ""))
             {
@@ -845,7 +845,7 @@ void DuktoProtocol::sendToAllBroadcast(QByteArray *packet, qint16 port)
     }
 }
 
-// Interrompe un trasferimento in corso (utilizzabile solo lato invio)
+// Interrupt a transfer in progress (usable only sending side)
 void DuktoProtocol::abortCurrentTransfer()
 {
     // Check if it's sending data
@@ -856,12 +856,12 @@ void DuktoProtocol::abortCurrentTransfer()
     emit sendFileAborted();
 }
 
-// Aggiorna il buddy name dell'utente locale
+// Update buddy name of the local user
 void DuktoProtocol::updateBuddyName()
 {
-    // Invio pacchetto di disconnessione
+    // Enter package disconnection
     sayGoodbye();
 
-    // Invio pacchetto di annuncio con il nuovo nome
+    // Enter package with the new name
     sayHello(QHostAddress::Broadcast, true);
 }

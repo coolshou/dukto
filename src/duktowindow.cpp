@@ -27,11 +27,15 @@
 #include <QDropEvent>
 #include <QMimeData>
 
-
+#if QT_VERSION < QT_VERSION_CHECK (5, 0, 0)
 DuktoWindow::DuktoWindow(QWidget *parent) :
+#else
+DuktoWindow::DuktoWindow(QWindow *parent) :
+#endif
     QmlApplicationViewer(parent), mGuiBehind(NULL)
 {
     // Configure window
+#if QT_VERSION < QT_VERSION_CHECK (5, 0, 0)
     setAcceptDrops(true);
     setWindowTitle("Dukto");
 	setWindowIcon(QIcon(":/dukto.png"));
@@ -40,6 +44,9 @@ DuktoWindow::DuktoWindow(QWidget *parent) :
     setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowCloseButtonHint | Qt::WindowMinimizeButtonHint);
     setMaximumSize(350, 5000);
     setMinimumSize(350, 500);
+#endif
+#else
+    qDebug() <<"TODO:  Configure window";
 #endif
 	//TODO: set ScreenOrientation by accelerometers to detect if it's orientation was changed
 	//QmlApplicationViewer::ScreenOrientationLockLandscape
@@ -95,7 +102,11 @@ void DuktoWindow::dropEvent(QDropEvent *event)
 
 void DuktoWindow::closeEvent(QCloseEvent *event)
 {
+    #if QT_VERSION < QT_VERSION_CHECK (5, 0, 0)
     mGuiBehind->settings()->saveWindowGeometry(saveGeometry());
+    #else
+    qDebug() << "TODO:saveGeometry";
+    #endif
     if (mGuiBehind->isTrayIconVisible()) {
         hide();
         event->ignore();
@@ -105,7 +116,11 @@ void DuktoWindow::closeEvent(QCloseEvent *event)
 }
 void DuktoWindow::showEvent(QShowEvent *event)
 {
+#if QT_VERSION < QT_VERSION_CHECK (5, 0, 0)
     restoreGeometry(mGuiBehind->settings()->windowGeometry());
+#else
+    qDebug() << "TODO:restoreGeometry";
+#endif
 }
 
 void DuktoWindow::exit(){

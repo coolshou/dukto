@@ -85,7 +85,10 @@ int main(int argc, char *argv[])
     DuktoWindow viewer;
         
 #ifndef SYMBIAN
+    #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+    //TODO: QtQuick 2 app.setActivationWindow
     app.setActivationWindow(&viewer, true);
+    #endif
 #endif
     GuiBehind gb(&viewer);
 

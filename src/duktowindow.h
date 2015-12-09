@@ -29,7 +29,11 @@ class DuktoWindow : public QmlApplicationViewer
     Q_OBJECT
 
 public:
+#if QT_VERSION < QT_VERSION_CHECK (5, 0, 0)
     explicit DuktoWindow(QWidget *parent = 0);
+#else
+    explicit DuktoWindow(QWindow *parent = 0);
+#endif
     void setGuiBehindReference(GuiBehind* ref);
     inline EcWin7* win7() { return &mWin7; }
 

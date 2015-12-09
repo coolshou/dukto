@@ -7,14 +7,18 @@
 QML_IMPORT_PATH =
 
 QT += network
-greaterThan(QT_MAJOR_VERSION, 4): QT += declarative widgets
+lessThan(QT_MAJOR_VERSION, 5) {
+ QT += declarative
+} else {
+ QT += widgets quick qml
+}
 QT += sensors
 
 #for nullptr
 greaterThan(QT_MAJOR_VERSION, 4): CONFIG += c++11
 
 
-VERSION = 6.1.0
+VERSION = 6.15.12.09
 # Define the preprocessor macro to get the application version in our application.
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
