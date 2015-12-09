@@ -100,8 +100,10 @@ for(tsfile, TRANSLATIONS) {
 
 
 lupdate_only{
-SOURCES = src/qml/dukto/*.qml \
-          src/qml/dukto/*.js
+SOURCES = \
+    src/qml/dukto/*.qml \
+    src/qml/dukto/*.js \
+    src/*.cpp
 }
 
 # Please do not modify the following two lines. Required for deployment.
