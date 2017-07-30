@@ -30,8 +30,11 @@
 #include "guibehind.h"
 #include "duktowindow.h"
 
+#include <QDebug>
+
 #if defined(ANDROID)
 #include "debug/qDebug2Logcat.h"
+#include "LockHelper.h"
 #endif
 
 #if defined(Q_OS_S60)
@@ -67,11 +70,20 @@ int main(int argc, char *argv[])
     QApplication::setApplicationVersion(APP_VERSION);
 
     // Check for single running instance    
+#define SINGLE
+#if defined(SINGLE)
     QtSingleApplication app(argc, argv);
     if (app.isRunning()) {
         app.sendMessage("FOREGROUND");
         return 0;
     }
+#else
+    QApplication app(argc, argv);
+    app.setAcceptDrops(true);
+    app.setWindowTitle("Dukto");
+#endif
+    app.setWindowIcon(QIcon(":/dukto.png"));
+
 #endif
     //translator
     QString locale = QLocale::system().name();
@@ -82,7 +94,8 @@ int main(int argc, char *argv[])
         qDebug() << "Could not load translations language of " << locale;
     }
 
-    DuktoWindow viewer;
+    //DuktoWindow viewer;
+    DuktoWindow *viewer = new DuktoWindow();
         
 #ifndef SYMBIAN
     #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
@@ -90,15 +103,19 @@ int main(int argc, char *argv[])
     app.setActivationWindow(&viewer, true);
     #endif
 #endif
-    GuiBehind gb(&viewer);
+    //GuiBehind gb(&viewer);
+    GuiBehind gb(viewer);
 
 #ifndef Q_OS_S60
-    viewer.showExpanded();
+    //viewer.showExpanded();
+    viewer->showExpanded();
     app.installEventFilter(&gb);
 #else
     viewer.showFullScreen();
     gb.initConnection();
 #endif
-
-    return app.exec();
+    int retVal =app.exec();
+    qDebug() << "App exiting with code:" << QString::number(retVal);
+    return retVal;
 }
+

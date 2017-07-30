@@ -1,6 +1,6 @@
-dukto (6.15.12.09-1) UNRELEASED; urgency=medium
+dukto (6.2017.07.30-1) unstable; urgency=medium
 
-  * port to QT5
+  * port to QT5.7
 
  -- jimmy <jimmy@jimmy-alpha>  Mon, 30 Nov 2015 13:53:04 +0800
 

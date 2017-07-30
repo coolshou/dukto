@@ -47,6 +47,7 @@ public:
 
     void showExpanded();
 
+
 private:
     explicit QmlApplicationViewer(QQuickView *view, QWindow *parent);
     class QmlApplicationViewerPrivate *d;

@@ -2,7 +2,8 @@ Source: dukto
 Priority: optional
 Section: net
 Maintainer: Emanuele Colombo <dukto@msec.it>
-Build-Depends: debhelper (>= 9), qttools5-dev-tools (>= 5.4), qt5-qmake (>= 5.4), qtbase5-dev (>= 5.4), qtquick1-5-dev (>= 5.4), libqt5sensors5-dev (>= 5.4), qtscript5-dev (>= 5.4), g++, build-essential
+Build-Depends: debhelper (>= 9), qttools5-dev-tools (>= 5.4), qt5-qmake (>= 5.4), qtbase5-dev (>= 5.4),
+ qtquick1-5-dev (>= 5.4)| qml-module-qtquick2 (>=5.7), libqt5sensors5-dev (>= 5.4), qtscript5-dev (>= 5.4), g++, build-essential
 
 Package: dukto
 Architecture: any

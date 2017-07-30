@@ -21,6 +21,11 @@
 
 #include "qmlapplicationviewer/qmlapplicationviewer.h"
 #include "ecwin7.h"
+#if defined(ANDROID)
+#include "LockHelper.h"
+#endif
+
+#include <QQuickWindow>
 
 class GuiBehind;
 
@@ -46,7 +51,9 @@ protected:
     void dragLeaveEvent(QDragLeaveEvent *event);
     void dropEvent(QDropEvent *event);
     void closeEvent(QCloseEvent *event);
+    //void closing(QQuickCloseEvent *close);
     void showEvent(QShowEvent *event);
+    bool event(QEvent *event) override;
 
 signals:
 

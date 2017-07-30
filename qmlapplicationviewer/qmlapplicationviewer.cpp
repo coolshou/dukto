@@ -103,7 +103,7 @@ QmlApplicationViewer::QmlApplicationViewer(QWindow *parent)
     setResizeMode(QDeclarativeView::SizeRootObjectToView);
 #else
     //TODO: QObject::connect: No such slot QtSingleApplication::close() in ../dukto/qmlapplicationviewer/qmlapplicationviewer.cpp:105
-    connect(engine(), SIGNAL(quit()),QCoreApplication::instance(), SLOT(close()));
+    connect(engine(), SIGNAL(quit()),QCoreApplication::instance(), SLOT(quit()));
     setResizeMode(QQuickView::SizeRootObjectToView);
 #endif
     // Qt versions prior to 4.8.0 don't have QML/JS debugging services built in
@@ -198,6 +198,7 @@ void QmlApplicationViewer::showExpanded()
     show();
 #endif
 }
+
 
 #if QT_VERSION < QT_VERSION_CHECK (5, 0, 0)
 QApplication *createApplication(int &argc, char **argv)

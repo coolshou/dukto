@@ -51,7 +51,11 @@ DuktoWindow::DuktoWindow(QWindow *parent) :
 	//TODO: set ScreenOrientation by accelerometers to detect if it's orientation was changed
 	//QmlApplicationViewer::ScreenOrientationLockLandscape
     setOrientation(QmlApplicationViewer::ScreenOrientationLockPortrait);
-
+#if defined(ANDROID)
+    KeepAwakeHelper helper;
+    // screen and CPU will stay awake during this section
+    // lock will be released when helper object goes out of scope
+#endif
     // Taskbar integration with Win7
     mWin7.init(this->winId());
 
@@ -102,10 +106,12 @@ void DuktoWindow::dropEvent(QDropEvent *event)
 
 void DuktoWindow::closeEvent(QCloseEvent *event)
 {
+    //this never trigger on Qt5.9 QQuickView? why?
+    //qDebug() << "TODO:closeEvent saveGeometry:" << frameGeometry();
     #if QT_VERSION < QT_VERSION_CHECK (5, 0, 0)
     mGuiBehind->settings()->saveWindowGeometry(saveGeometry());
     #else
-    qDebug() << "TODO:saveGeometry";
+    mGuiBehind->settings()->saveWindowGeometry(frameGeometry());
     #endif
     if (mGuiBehind->isTrayIconVisible()) {
         hide();
@@ -114,13 +120,33 @@ void DuktoWindow::closeEvent(QCloseEvent *event)
         mGuiBehind->close();
     }
 }
+bool DuktoWindow::event(QEvent *event)
+{
+    if (event->type() == QEvent::Close) {
+#if QT_VERSION < QT_VERSION_CHECK (5, 0, 0)
+        mGuiBehind->settings()->saveWindowGeometry(saveGeometry());
+#else
+        mGuiBehind->settings()->saveWindowGeometry(frameGeometry());
+#endif
+        if (mGuiBehind->isTrayIconVisible()) {
+            hide();
+            event->ignore();
+        } else {
+            show(); //must show() then it can be close
+            event->accept();
+        }
+    }
+    return QQuickView::event(event);
+}
+
 void DuktoWindow::showEvent(QShowEvent *event)
 {
 #if QT_VERSION < QT_VERSION_CHECK (5, 0, 0)
     restoreGeometry(mGuiBehind->settings()->windowGeometry());
 #else
-    qDebug() << "TODO:restoreGeometry";
+    setGeometry(QRect(mGuiBehind->settings()->windowRect()));
 #endif
+    Q_UNUSED(event);
 }
 
 void DuktoWindow::exit(){

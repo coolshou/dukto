@@ -32,9 +32,12 @@ Item {
 
         SmoothText {
             id: buddyText
-            x: 10
+            anchors.left: parent.left
+            //anchors.fill: contentWidth
+            //x: 10
             font.pixelSize: 84
             text: qsTr("buddies")
+            width: buddyText.text.width
             transformOrigin: Item.TopLeft
             color: buddyTextMouseArea.containsMouse ? theme.color3 : theme.color7
             scale: 0.5
@@ -52,10 +55,12 @@ Item {
 
         SmoothText {
             id: recentText
-            //anchors.left: buddyText.right
-            x: 150
+            anchors.left: buddyText.right
+            //anchors.fill: contentWidth
+            //x: 100
             font.pixelSize: 84
             text: qsTr("recent")
+            width: recentText.text.width
             transformOrigin: Item.TopLeft
             color: recentTextMouseArea.containsMouse ? theme.color3 : theme.color7
             scale: 0.5
@@ -73,10 +78,13 @@ Item {
 
         SmoothText {
             id: aboutText
-            x: 300
+            anchors.left: recentText.right
+            //anchors.fill: contentWidth
+            //x: 150
             font.pixelSize: 84
             color: aboutTextMouseArea.containsMouse ? theme.color3 : theme.color7
             text: qsTr("about")
+            width: aboutText.text.width
             MouseArea {
                 id: aboutTextMouseArea
                 anchors.fill: parent

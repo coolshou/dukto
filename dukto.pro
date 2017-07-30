@@ -18,7 +18,7 @@ QT += sensors
 greaterThan(QT_MAJOR_VERSION, 4): CONFIG += c++11
 
 
-VERSION = 6.15.12.09
+VERSION = 6.2017.07.30
 # Define the preprocessor macro to get the application version in our application.
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
@@ -75,6 +75,7 @@ SOURCES += \
     src/theme.cpp \
     src/updateschecker.cpp
 
+
 #Localizing
 LANGUAGES = zh_TW
 
@@ -130,6 +131,7 @@ HEADERS += \
     src/theme.h \
     src/updateschecker.h
 
+
 RESOURCES += \
     src/qml.qrc \
     src/translations.qrc
@@ -148,10 +150,16 @@ DISTFILES += \
 
 #android
 android {
+QT += androidextras
+
 HEADERS += \
-    debug/qDebug2Logcat.h
+    debug/qDebug2Logcat.h \
+    src/LockHelper.h
+
 SOURCES += \
-    debug/qDebug2Logcat.cpp
+    debug/qDebug2Logcat.cpp \
+    src/LockHelper.cpp
+
 #app's icon:
 # ldpi : 36x36px (120 dpi / 47 dpcm)
 # mdpi : 48x48px (160 dpi / 62 dpcm)

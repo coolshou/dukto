@@ -23,6 +23,8 @@
 #include <QDir>
 #include "theme.h"
 
+#include <QDebug>
+
 Settings::Settings(QObject *parent) :
     QObject(parent), mSettings("dukto", "Dukto")
 {
@@ -57,10 +59,18 @@ void Settings::saveWindowGeometry(QByteArray geo)
     mSettings.setValue("WindowPosAndSize", geo);
     mSettings.sync();
 }
-
+void Settings::saveWindowGeometry(QRect geo)
+{
+    mSettings.setValue("WindowPosAndSize", geo);
+    mSettings.sync();
+}
 QByteArray Settings::windowGeometry()
 {
     return mSettings.value("WindowPosAndSize").toByteArray();
+}
+QRect Settings::windowRect()
+{
+    return mSettings.value("WindowPosAndSize", QRect(20,40,300,400)).toRect();
 }
 
 void Settings::saveThemeColor(QString color)
