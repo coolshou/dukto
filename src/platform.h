@@ -40,8 +40,9 @@ public:
     static QString getMacTempAvatarPath();
 #elif defined(Q_OS_WIN)
     static QString getWinTempAvatarPath();
-#elif defined(Q_OS_ANDROID)
-    static QString getAndroidAvatarPath()
+#endif
+#if defined(Q_OS_ANDROID)
+    static QString getAndroidAvatarPath();
 #endif
 };
 

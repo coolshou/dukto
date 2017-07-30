@@ -77,4 +77,6 @@ Rectangle {
         property: "overlayState"
         value: duktoOverlay.state
     }
+    signal quit();
+    Component.onDestruction: quit();
 }
